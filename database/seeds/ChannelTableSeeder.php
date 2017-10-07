@@ -16,21 +16,25 @@ class ChannelTableSeeder extends Seeder
             'public' => '1',
             'channel_name' => 'A & G Sound Only',
             'channel_url' => 'rtmp://fms-base1.mitene.ad.jp/agqr/aandg22',
-        ]);
+            'play' => '0',
+            ]);
         DB::table('channels')->insert([
             'public' => '1',
             'channel_name' => 'AFN FAN',
             'channel_url' => 'http://15113.live.streamtheworld.com/AFN_FANAAC.aac',
-        ]);
+            'play' => '0',
+            ]);
         DB::table('channels')->insert([
             'public' => '1',
             'channel_name' => 'AFN JOE',
             'channel_url' => 'http://19393.live.streamtheworld.com/AFN_JOEP.mp3',
-        ]);
+            'play' => '0',
+            ]);
         DB::table('channels')->insert([
             'public' => '1',
             'channel_name' => 'AFN Tokyo',
             'channel_url' => 'http://15363.live.streamtheworld.com/AFNP_TKO.mp3',
-        ]);
+            'play' => '0',
+            ]);
     }
 }

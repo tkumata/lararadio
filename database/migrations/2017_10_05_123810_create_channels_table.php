@@ -18,6 +18,7 @@ class CreateChannelsTable extends Migration
             $table->integer('public');
             $table->string('channel_name');
             $table->string('channel_url')->unique();
+            $table->integer('play');
             $table->timestamps();
         });
     }
