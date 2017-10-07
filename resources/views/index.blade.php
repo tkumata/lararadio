@@ -17,17 +17,17 @@
                     <input type="hidden" name="channel_name" value="{{$channel->channel_name}}">
                     <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
                     @if ($channel->play == 1)
-                    <button class="btn-primary play" type="button" style="display:none;">
+                    <button class="btn btn-primary play" type="button" style="display:none;">
                         <span class="glyphicon glyphicon-play"></span> Play
                     </button>
-                    <button class="btn-default stop" type="button">
+                    <button class="btn btn-default stop" type="button">
                         <span class="glyphicon glyphicon-stop"></span> Stop
                     </button>
                     @else
-                    <button class="btn-primary play" type="button">
+                    <button class="btn btn-primary play" type="button">
                         <span class="glyphicon glyphicon-play"></span> Play
                     </button>
-                    <button class="btn-default stop" type="button" style="display:none;">
+                    <button class="btn btn-default stop" type="button" style="display:none;">
                         <span class="glyphicon glyphicon-stop"></span> Stop
                     </button>
                     @endif
