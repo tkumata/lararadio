@@ -23,27 +23,27 @@ class ChannelsController extends Controller
     public function play(Request $request)
     {
         //
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'Linux') {
-            $process = new Process('rtmpdump --live -r ' . $request->channel_url .' | mplayer -novideo -af volnorm=2:0.10 -');
-            $process->setTimeout(3600);
-            $process->setPty(true);
-    
-            $process->run();
+        if (strtoupper(PHP_OS) === 'LINUX') {
+            $cmd = 'nohup sh -c "rtmpdump -q --live -r '.$request->channel_url.' | mplayer -novideo -af volnorm=2:0.20 - >/dev/null 2>&1" >/dev/null 2>&1 &';
+            $process = new Process($cmd);
+            $process->disableOutput();
+            $process->start();
         }
 
-        return response()->json([
-            'channel_id' => $request->channel_id,
-            'channel_name' => $request->channel_name,
-        ]);
+#        return response()->json([
+#            'channel_id' => $request->channel_id,
+#            'channel_name' => $request->channel_name,
+#        ]);
     }
 
     public function stop(Request $request)
     {
         //
-        $process = new Process('killall rtmpdump mplayer');
-        $process->setTimeout(3600);
-        $process->setPty(true);
-
+        $process = new Process('/usr/bin/killall rtmpdump');
+        $process->disableOutput();
+        $process->run();
+        $process = new Process('/usr/bin/killall mplayer');
+        $process->disableOutput();
         $process->run();
 
         return response()->json([

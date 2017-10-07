@@ -15,7 +15,7 @@
                 <form method="post" id="channel-form{{$channel->id}}">
                 {{ csrf_field() }}
                 <div class="panel-body">
-                    {{$channel->channel_name}}
+                    <span class="ch">{{$channel->channel_name}}</span>
                     <input type="hidden" name="channel_id" value="{{$channel->id}}">
                     <input type="hidden" name="channel_name" value="{{$channel->channel_name}}">
                     <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
@@ -39,16 +39,17 @@ $(function(){
         $('.icon').html('');
         var playIndex = $('.play').index(this) + 1;
         var data = $("#channel-form"+playIndex).serialize();
+        $("#"+htmlid).html('playing...');
+        $('.play').eq(playIndex - 1).css({'display':'none'});
+        $('.stop').eq(playIndex - 1).css({'display':'inline-block','color':'#c00'});
+        var htmlid = 'icon' + playIndex;
+        var now = $('.ch').eq(playIndex-1).text();
+        $("#now").html(now);
         $.ajax({
             type: "post",
             url: "/play",
             data: data,
             success: function(json){
-                var htmlid = 'icon' + json['channel_id'];
-                $("#"+htmlid).html('playing...');
-                $("#now").html(json['channel_name']);
-                $('.play').eq(playIndex - 1).css({'display':'none'});
-                $('.stop').eq(playIndex - 1).css({'display':'inline-block','color':'#c00'});
             },
             error:function(){
                 $("#"+htmlid).html('処理に失敗しました');
