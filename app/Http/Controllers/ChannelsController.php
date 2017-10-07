@@ -52,9 +52,9 @@ class ChannelsController extends Controller
         $ch->play = '0';
         $result = $ch->save();
 
-        $process = new Process('/usr/bin/killall rtmpdump');
-        $process->disableOutput();
-        $process->start();
+        // $process = new Process('/usr/bin/killall rtmpdump');
+        // $process->disableOutput();
+        // $process->start();
         $process = new Process('/usr/bin/killall mplayer');
         $process->disableOutput();
         $process->start();
