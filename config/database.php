@@ -47,11 +47,11 @@ return [
             'username' => env('DB_USERNAME', 'homestead'),
             'password' => env('DB_PASSWORD', 'tmkt-7174-Kmt'),
             'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => 'utf8',
-            'collation' => 'utf8_general_ci',
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
             'strict' => true,
-            'engine' => null,
+            'engine' => 'InnoDB ROW_FORMAT=DYNAMIC',
         ],
 
         'pgsql' => [
