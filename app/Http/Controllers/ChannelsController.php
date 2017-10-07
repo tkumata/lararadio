@@ -36,13 +36,12 @@ class ChannelsController extends Controller
             #$cmd = 'nohup sh -c "rtmpdump -q --live -r '.$request->channel_url.' -o - | mplayer -really-quiet -novideo -af volnorm=2:0.20 - >/dev/null 2>&1 &" >/dev/null 2>&1 &';
             $cmd = 'nohup mplayer -really-quiet -novideo -af volnorm=2:0.15 "'.$request->channel_url.$live.'" > /dev/null 2>&1 &';
             $process = new Process($cmd);
-            #$process->disableOutput();
+            $process->disableOutput();
             $process->start();
         }
 
         return response()->json([
             'channel_id' => $request->channel_id,
-            'channel_name' => $request->channel_name,
         ]);
     }
 
