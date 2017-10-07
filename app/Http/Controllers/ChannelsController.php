@@ -23,28 +23,42 @@ class ChannelsController extends Controller
     public function play(Request $request)
     {
         //
+        $ch = Channels::find($request->channel_id);
+        $ch->play = '1';
+        $result = $ch->save();
+
         if (strtoupper(PHP_OS) === 'LINUX') {
-            $cmd = 'nohup sh -c "rtmpdump -q --live -r '.$request->channel_url.' | mplayer -novideo -af volnorm=2:0.20 - >/dev/null 2>&1" >/dev/null 2>&1 &';
+            if (preg_match("/^rtmp/", $request->channel_url)) {
+                $live = " live=1";
+            } else {
+                $live = "";
+            }
+            #$cmd = 'nohup sh -c "rtmpdump -q --live -r '.$request->channel_url.' -o - | mplayer -really-quiet -novideo -af volnorm=2:0.20 - >/dev/null 2>&1 &" >/dev/null 2>&1 &';
+            $cmd = 'nohup mplayer -really-quiet -novideo -af volnorm=2:0.15 "'.$request->channel_url.$live.'" > /dev/null 2>&1 &';
             $process = new Process($cmd);
-            $process->disableOutput();
+            #$process->disableOutput();
             $process->start();
         }
 
-#        return response()->json([
-#            'channel_id' => $request->channel_id,
-#            'channel_name' => $request->channel_name,
-#        ]);
+        return response()->json([
+            'channel_id' => $request->channel_id,
+            'channel_name' => $request->channel_name,
+        ]);
     }
 
     public function stop(Request $request)
     {
         //
+        $ch = Channels::find($request->channel_id);
+        $ch->play = '0';
+        $result = $ch->save();
+
         $process = new Process('/usr/bin/killall rtmpdump');
         $process->disableOutput();
-        $process->run();
+        $process->start();
         $process = new Process('/usr/bin/killall mplayer');
         $process->disableOutput();
-        $process->run();
+        $process->start();
 
         return response()->json([
             'channel_id' => $request->channel_id,

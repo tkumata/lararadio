@@ -8,9 +8,6 @@
                 <div class="panel-heading">
                     Channels
                 </div>
-                <div class="panel-heading">
-                    Now playing... <div id="now"></div>
-                </div>
                 @foreach ($channels as $channel)
                 <form method="post" id="channel-form{{$channel->id}}">
                 {{ csrf_field() }}
@@ -19,8 +16,13 @@
                     <input type="hidden" name="channel_id" value="{{$channel->id}}">
                     <input type="hidden" name="channel_name" value="{{$channel->channel_name}}">
                     <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
-                    <button type="button" class="play">play</button>
+                    @if ($channel->play == 1)
+                    <button type="button" class="play" style="display:none;">play</button>
                     <button type="button" class="stop">stop</button>
+                    @else
+                    <button type="button" class="play">play</button>
+                    <button type="button" class="stop" style="display:none;">stop</button>
+                    @endif
                     <div id="icon{{$channel->id}}" class="icon"></div>
                 </div>
                 </form>
@@ -32,45 +34,45 @@
 <script>
 $(function(){
     // load 時
-    $('.stop').css({'display':'none'});
+//    $('.stop').css({'display':'none'});
 
     // click 時
     $(document).on('click', '.play', function(e){
-        $('.icon').html('');
+//        $('.icon').html('');
         var playIndex = $('.play').index(this) + 1;
         var data = $("#channel-form"+playIndex).serialize();
-        $("#"+htmlid).html('playing...');
         $('.play').eq(playIndex - 1).css({'display':'none'});
-        $('.stop').eq(playIndex - 1).css({'display':'inline-block','color':'#c00'});
-        var htmlid = 'icon' + playIndex;
-        var now = $('.ch').eq(playIndex-1).text();
-        $("#now").html(now);
+        $('.stop').eq(playIndex - 1).css({'display':'inline-block'});
         $.ajax({
             type: "post",
             url: "/play",
             data: data,
+            async: true,
             success: function(json){
             },
             error:function(){
                 $("#"+htmlid).html('処理に失敗しました');
             }
         });
+        setTimeout(function(){
+            location.reload();
+        },3000);
     });
 
     $(document).on('click', '.stop', function(e){
-        $('.icon').html('');
+//        $('.icon').html('');
         var stopIndex = $('.stop').index(this) + 1;
-        var data = $("#channel-form"+stopIndex).serialize();
+        var data2 = $("#channel-form"+stopIndex).serialize();
+        $('.play').eq(stopIndex - 1).css({'display':'inline-block'});
+        $('.stop').eq(stopIndex - 1).css({'display':'none'});
         $.ajax({
             type: "post",
             url: "/stop",
-            data: data,
+            data: data2,
+            async: true,
             success: function(json){
-                var htmlid = 'icon' + json['channel_id'];
-                $("#"+htmlid).html('');
-                $("#now").html('');
-                $('.play').eq(stopIndex - 1).css({'display':'inline-block'});
-                $('.stop').eq(stopIndex - 1).css({'display':'none'});
+//                var htmlid = 'icon' + json['channel_id'];
+//                $("#"+htmlid).html('');
             },
             error:function(){
                 $("#"+htmlid).html('処理に失敗しました');
