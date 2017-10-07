@@ -16,7 +16,7 @@
                     {{ csrf_field() }}
                     <div class="panel-body">
                         @if ($channel->play == 1)
-                        <button class="btn btn-primary play hidden" type="button">
+                        <button class="btn btn-primary play" type="button" style="display:none;">
                             <span class="glyphicon glyphicon-play"></span> Play
                         </button>
                         <button class="btn btn-default stop" type="button">
@@ -26,7 +26,7 @@
                         <button class="btn btn-primary play" type="button">
                             <span class="glyphicon glyphicon-play"></span> Play
                         </button>
-                        <button class="btn btn-default stop hidden" type="button">
+                        <button class="btn btn-default stop" type="button" style="display:none;">
                             <span class="glyphicon glyphicon-stop"></span> Stop
                         </button>
                         @endif
@@ -59,7 +59,7 @@ $(function(){
         });
         setTimeout(function(){
             location.reload();
-        },3000);
+        },2000);
     });
 
     $(document).on('click', '.stop', function(e){
