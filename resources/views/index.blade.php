@@ -15,7 +15,6 @@
                     <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
                     {{ csrf_field() }}
                     <div class="panel-body">
-                        <span class="ch">{{$channel->channel_name}}</span>
                         @if ($channel->play == 1)
                         <button class="btn btn-primary play hidden" type="button">
                             <span class="glyphicon glyphicon-play"></span> Play
@@ -24,13 +23,14 @@
                             <span class="glyphicon glyphicon-stop"></span> Stop
                         </button>
                         @else
-                        <button class="btn btn-primary navbar-right play" type="button">
+                        <button class="btn btn-primary play" type="button">
                             <span class="glyphicon glyphicon-play"></span> Play
                         </button>
                         <button class="btn btn-default stop hidden" type="button">
                             <span class="glyphicon glyphicon-stop"></span> Stop
                         </button>
                         @endif
+                        <span class="ch">{{$channel->channel_name}}</span>
                     </div>
                 </form>
                 @endforeach
