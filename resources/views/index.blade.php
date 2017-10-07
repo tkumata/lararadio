@@ -10,28 +10,28 @@
                 </div>
                 @foreach ($channels as $channel)
                 <form method="post" id="channel-form{{$channel->id}}">
-                {{ csrf_field() }}
-                <div class="panel-body">
-                    <span class="ch">{{$channel->channel_name}}</span>
                     <input type="hidden" name="channel_id" value="{{$channel->id}}">
                     <input type="hidden" name="channel_name" value="{{$channel->channel_name}}">
                     <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
-                    @if ($channel->play == 1)
-                    <button class="btn btn-primary play" type="button" style="display:none;">
-                        <span class="glyphicon glyphicon-play"></span> Play
-                    </button>
-                    <button class="btn btn-default stop" type="button">
-                        <span class="glyphicon glyphicon-stop"></span> Stop
-                    </button>
-                    @else
-                    <button class="btn btn-primary play" type="button">
-                        <span class="glyphicon glyphicon-play"></span> Play
-                    </button>
-                    <button class="btn btn-default stop" type="button" style="display:none;">
-                        <span class="glyphicon glyphicon-stop"></span> Stop
-                    </button>
-                    @endif
-                </div>
+                    {{ csrf_field() }}
+                    <div class="panel-body">
+                        <span class="ch">{{$channel->channel_name}}</span>
+                        @if ($channel->play == 1)
+                        <button class="btn btn-primary play hidden" type="button">
+                            <span class="glyphicon glyphicon-play"></span> Play
+                        </button>
+                        <button class="btn btn-default stop" type="button">
+                            <span class="glyphicon glyphicon-stop"></span> Stop
+                        </button>
+                        @else
+                        <button class="btn btn-primary navbar-right play" type="button">
+                            <span class="glyphicon glyphicon-play"></span> Play
+                        </button>
+                        <button class="btn btn-default stop hidden" type="button">
+                            <span class="glyphicon glyphicon-stop"></span> Stop
+                        </button>
+                        @endif
+                    </div>
                 </form>
                 @endforeach
             </div>
