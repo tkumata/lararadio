@@ -17,13 +17,20 @@
                     <input type="hidden" name="channel_name" value="{{$channel->channel_name}}">
                     <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
                     @if ($channel->play == 1)
-                    <button class=".btn-primary" type="button" class="play" style="display:none;"><span class="glyphicon glyphicon-play"></span> Play</button>
-                    <button class=".btn-default" type="button" class="stop"><span class="glyphicon glyphicon-stop"></span> Stop</button>
+                    <button class="btn-primary" type="button" class="play" style="display:none;">
+                        <span class="glyphicon glyphicon-play"></span> Play
+                    </button>
+                    <button class="btn-default" type="button" class="stop">
+                        <span class="glyphicon glyphicon-stop"></span> Stop
+                    </button>
                     @else
-                    <button class=".btn-primary" type="button" class="play"><span class="glyphicon glyphicon-play"></span> Play</button>
-                    <button class=".btn-default" type="button" class="stop" style="display:none;"><span class="glyphicon glyphicon-stop"></span> Stop</button>
+                    <button class="btn-primary" type="button" class="play">
+                        <span class="glyphicon glyphicon-play"></span> Play
+                    </button>
+                    <button class="btn-default" type="button" class="stop" style="display:none;">
+                        <span class="glyphicon glyphicon-stop"></span> Stop
+                    </button>
                     @endif
-                    <div id="icon{{$channel->id}}" class="icon"></div>
                 </div>
                 </form>
                 @endforeach
