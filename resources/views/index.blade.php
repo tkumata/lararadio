@@ -40,10 +40,6 @@
 </div>
 <script>
 $(function(){
-    // load 時
-//    $('.stop').css({'display':'none'});
-
-    // click 時
     $(document).on('click', '.play', function(e){
 //        $('.icon').html('');
         var playIndex = $('.play').index(this) + 1;
@@ -78,8 +74,8 @@ $(function(){
             data: data2,
             async: true,
             success: function(json){
-//                var htmlid = 'icon' + json['channel_id'];
-//                $("#"+htmlid).html('');
+            //    var htmlid = 'icon' + json['channel_id'];
+            //    $("#"+htmlid).html('');
             },
             error:function(){
                 $("#"+htmlid).html('処理に失敗しました');
