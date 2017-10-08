@@ -17,26 +17,23 @@
                         <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
                         <input type="hidden" class="chid" value="{{$channel->id}}">
                         {{ csrf_field() }}
-                        <div class="row">
-                            <td><span>{{$channel->id}}</span></td>
-                            <td>
-                                @if ($channel->play == 1)
-                                <button class="btn btn-primary play" type="button" style="display:none;">
-                                    <span class="glyphicon glyphicon-play"></span> Play
-                                </button>
-                                <button class="btn btn-default stop" type="button">
-                                    <span class="glyphicon glyphicon-stop"></span> Stop
-                                </button>
-                                @else
-                                <button class="btn btn-primary play" type="button">
-                                    <span class="glyphicon glyphicon-play"></span> Play
-                                </button>
-                                <button class="btn btn-default stop" type="button" style="display:none;">
-                                    <span class="glyphicon glyphicon-stop"></span> Stop
-                                </button>
-                                @endif
-                            </td>
-                            <td><span>{{$channel->channel_name}}</span></td>
+                        <div class="panel-body">
+                            @if ($channel->play == 1)
+                            <button class="btn btn-primary play" type="button" style="display:none;">
+                                <span class="glyphicon glyphicon-play"></span> Play
+                            </button>
+                            <button class="btn btn-default stop" type="button">
+                                <span class="glyphicon glyphicon-stop"></span> Stop
+                            </button>
+                            @else
+                            <button class="btn btn-primary play" type="button">
+                                <span class="glyphicon glyphicon-play"></span> Play
+                            </button>
+                            <button class="btn btn-default stop" type="button" style="display:none;">
+                                <span class="glyphicon glyphicon-stop"></span> Stop
+                            </button>
+                            @endif
+                            <span>{{$channel->channel_name}}</span>
                         </div>
                     </form>
                     @endforeach
