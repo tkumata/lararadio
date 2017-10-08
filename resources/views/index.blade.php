@@ -17,8 +17,7 @@
                         <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
                         <input type="hidden" class="chid" value="{{$channel->id}}">
                         {{ csrf_field() }}
-                        <table class="table table-striped table-hover">
-                        <tr class="row">
+                        <div class="row">
                             <td><span>{{$channel->id}}</span></td>
                             <td>
                                 @if ($channel->play == 1)
@@ -38,8 +37,7 @@
                                 @endif
                             </td>
                             <td><span>{{$channel->channel_name}}</span></td>
-                        </tr>
-                        </table>
+                        </div>
                     </form>
                     @endforeach
                 </div>
