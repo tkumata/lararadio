@@ -46,10 +46,10 @@ $(function(){
     $(document).on('click', '.play', function(e){
         // $('.icon').html('');
         var clickIndex = $('.play').index(this);
-        var playIndex =  $('.chid').eq(clickIndex).value();
+        var playIndex = $('.chid').eq(clickIndex).val();
         var data = $("#channel-form"+playIndex).serialize();
-        $('.play').eq(playIndex-1).css({'display':'none'});
-        $('.stop').eq(playIndex-1).css({'display':'inline-block'});
+        $('.play').eq(playIndex).css({'display':'none'});
+        $('.stop').eq(playIndex).css({'display':'inline-block'});
         $.ajax({
             type: "post",
             url: "/play",
@@ -68,10 +68,11 @@ $(function(){
 
     $(document).on('click', '.stop', function(e){
         // $('.icon').html('');
-        var stopIndex = $('.stop').index(this) + 1;
+        var clickIndex = $('.play').index(this);
+        var stopIndex = $('.chid').eq(clickIndex).val();
         var data2 = $("#channel-form"+stopIndex).serialize();
-        $('.play').eq(stopIndex-1).css({'display':'inline-block'});
-        $('.stop').eq(stopIndex-1).css({'display':'none'});
+        $('.play').eq(stopIndex).css({'display':'inline-block'});
+        $('.stop').eq(stopIndex).css({'display':'none'});
         $.ajax({
             type: "post",
             url: "/stop",
