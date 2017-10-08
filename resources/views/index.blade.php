@@ -41,11 +41,11 @@
 <script>
 $(function(){
     $(document).on('click', '.play', function(e){
-//        $('.icon').html('');
+        // $('.icon').html('');
         var playIndex = $('.play').index(this) + 1;
         var data = $("#channel-form"+playIndex).serialize();
-        $('.play').eq(playIndex - 1).css({'display':'none'});
-        $('.stop').eq(playIndex - 1).css({'display':'inline-block'});
+        $('.play').eq(playIndex-1).css({'display':'none'});
+        $('.stop').eq(playIndex-1).css({'display':'inline-block'});
         $.ajax({
             type: "post",
             url: "/play",
@@ -59,15 +59,15 @@ $(function(){
         });
         setTimeout(function(){
             location.reload();
-        },2000);
+        },1500);
     });
 
     $(document).on('click', '.stop', function(e){
-//        $('.icon').html('');
+        // $('.icon').html('');
         var stopIndex = $('.stop').index(this) + 1;
         var data2 = $("#channel-form"+stopIndex).serialize();
-        $('.play').eq(stopIndex - 1).css({'display':'inline-block'});
-        $('.stop').eq(stopIndex - 1).css({'display':'none'});
+        $('.play').eq(stopIndex-1).css({'display':'inline-block'});
+        $('.stop').eq(stopIndex-1).css({'display':'none'});
         $.ajax({
             type: "post",
             url: "/stop",
