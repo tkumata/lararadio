@@ -9,34 +9,41 @@
                     Channels
                     <div id="messages"></div>
                 </div>
-                @foreach ($channels as $channel)
-                <form method="post" id="channel-form{{$channel->id}}">
-                    <input type="hidden" name="channel_id" value="{{$channel->id}}">
-                    <input type="hidden" name="channel_name" value="{{$channel->channel_name}}">
-                    <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
-                    <input type="hidden" class="chid" value="{{$channel->id}}">
-                    {{ csrf_field() }}
-                    <div class="panel-body">
-                        @if ($channel->play == 1)
-                        <button class="btn btn-primary play" type="button" style="display:none;">
-                            <span class="glyphicon glyphicon-play"></span> Play
-                        </button>
-                        <button class="btn btn-default stop" type="button">
-                            <span class="glyphicon glyphicon-stop"></span> Stop
-                        </button>
-                        @else
-                        <button class="btn btn-primary play" type="button">
-                            <span class="glyphicon glyphicon-play"></span> Play
-                        </button>
-                        <button class="btn btn-default stop" type="button" style="display:none;">
-                            <span class="glyphicon glyphicon-stop"></span> Stop
-                        </button>
-                        @endif
-                        <span class="ch">{{$channel->channel_name}}</span>
-                    </div>
-                </form>
-                @endforeach
-                {{ $channels->links() }}
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                    @foreach ($channels as $channel)
+                    <form method="post" id="channel-form{{$channel->id}}">
+                        <input type="hidden" name="channel_id" value="{{$channel->id}}">
+                        <input type="hidden" name="channel_name" value="{{$channel->channel_name}}">
+                        <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
+                        <input type="hidden" class="chid" value="{{$channel->id}}">
+                        {{ csrf_field() }}
+                        <tr class="row">
+                            <td><span>{{$channel->id}}</span></td>
+                            <td>
+                                @if ($channel->play == 1)
+                                <button class="btn btn-primary play" type="button" style="display:none;">
+                                    <span class="glyphicon glyphicon-play"></span> Play
+                                </button>
+                                <button class="btn btn-default stop" type="button">
+                                    <span class="glyphicon glyphicon-stop"></span> Stop
+                                </button>
+                                @else
+                                <button class="btn btn-primary play" type="button">
+                                    <span class="glyphicon glyphicon-play"></span> Play
+                                </button>
+                                <button class="btn btn-default stop" type="button" style="display:none;">
+                                    <span class="glyphicon glyphicon-stop"></span> Stop
+                                </button>
+                                @endif
+                            </td>
+                            <td><span>{{$channel->channel_name}}</span></td>
+                        </tr>
+                    </form>
+                    @endforeach
+                    </table>
+                </div>
+                <div class="text-center">{{ $channels->links() }}</div>
             </div>
         </div>
     </div>
@@ -44,7 +51,6 @@
 <script>
 $(function(){
     $(document).on('click', '.play', function(e){
-        // $('.icon').html('');
         var clickIndex = $('.play').index(this);
         var playIndex = $('.chid').eq(clickIndex).val();
         var data = $("#channel-form"+playIndex).serialize();
