@@ -55,9 +55,9 @@ class ChannelsController extends Controller
         // $process = new Process('/usr/bin/killall rtmpdump');
         // $process->disableOutput();
         // $process->start();
-        $process = new Process('/usr/bin/killall mplayer');
-        $process->disableOutput();
-        $process->start();
+        $mplayerProcess = new Process('/usr/bin/killall mplayer');
+        $mplayerProcess->disableOutput();
+        $mplayerProcess->start();
 
         return response()->json([
             'channel_id' => $request->channel_id,
