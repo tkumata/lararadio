@@ -14,6 +14,7 @@
                     <input type="hidden" name="channel_id" value="{{$channel->id}}">
                     <input type="hidden" name="channel_name" value="{{$channel->channel_name}}">
                     <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
+                    <input type="hidden" class="chid" value="{{$channel->id}}">
                     {{ csrf_field() }}
                     <div class="panel-body">
                         @if ($channel->play == 1)
@@ -44,7 +45,8 @@
 $(function(){
     $(document).on('click', '.play', function(e){
         // $('.icon').html('');
-        var playIndex = $('.play').index(this) + 1;
+        var clickIndex = $('.play').index(this);
+        var playIndex =  $('.chid').eq(clickIndex).value();
         var data = $("#channel-form"+playIndex).serialize();
         $('.play').eq(playIndex-1).css({'display':'none'});
         $('.stop').eq(playIndex-1).css({'display':'inline-block'});
