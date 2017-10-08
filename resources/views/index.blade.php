@@ -63,12 +63,12 @@ $(function(){
         });
         setTimeout(function(){
             location.reload();
-        },1500);
+        },777);
     });
 
     $(document).on('click', '.stop', function(e){
         // $('.icon').html('');
-        var clickIndex = $('.play').index(this);
+        var clickIndex = $('.stop').index(this);
         var stopIndex = $('.chid').eq(clickIndex).val();
         var data2 = $("#channel-form"+stopIndex).serialize();
         $('.play').eq(stopIndex).css({'display':'inline-block'});
