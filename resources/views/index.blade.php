@@ -7,6 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Channels
+                    <div id="messages"></div>
                 </div>
                 @foreach ($channels as $channel)
                 <form method="post" id="channel-form{{$channel->id}}">
@@ -34,6 +35,7 @@
                     </div>
                 </form>
                 @endforeach
+                {{ $channels->links() }}
             </div>
         </div>
     </div>
@@ -54,7 +56,7 @@ $(function(){
             success: function(json){
             },
             error:function(){
-                $("#"+htmlid).html('処理に失敗しました');
+                $("#messages").html('処理に失敗しました');
             }
         });
         setTimeout(function(){
@@ -78,7 +80,7 @@ $(function(){
             //    $("#"+htmlid).html('');
             },
             error:function(){
-                $("#"+htmlid).html('処理に失敗しました');
+                $("#messages").html('処理に失敗しました');
             }
         });
     });
