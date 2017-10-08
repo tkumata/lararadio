@@ -14,8 +14,20 @@ class ChannelTableSeeder extends Seeder
         //
         DB::table('channels')->insert([
             'public' => '1',
-            'channel_name' => 'A & G Sound Only',
+            'channel_name' => 'A&G',
             'channel_url' => 'rtmp://fms-base1.mitene.ad.jp/agqr/aandg22',
+            'play' => '0',
+        ]);
+        DB::table('channels')->insert([
+            'public' => '1',
+            'channel_name' => '181 FM Rock',
+            'channel_url' => 'http://listen.181fm.com/181-rock_128k.mp3',
+            'play' => '0',
+        ]);
+        DB::table('channels')->insert([
+            'public' => '1',
+            'channel_name' => '181 FM Breeze',
+            'channel_url' => 'http://listen.181fm.com/181-breeze_128k.mp3',
             'play' => '0',
         ]);
         DB::table('channels')->insert([
@@ -50,14 +62,8 @@ class ChannelTableSeeder extends Seeder
         ]);
         DB::table('channels')->insert([
             'public' => '1',
-            'channel_name' => '181 FM Rock',
-            'channel_url' => 'http://listen.181fm.com/181-rock_128k.mp3',
-            'play' => '0',
-        ]);
-        DB::table('channels')->insert([
-            'public' => '1',
-            'channel_name' => '181 FM Breeze',
-            'channel_url' => 'http://listen.181fm.com/181-breeze_128k.mp3?listenerid=7fcdfe40cdae27365771a7431d9d2937&cb=330367.mp3',
+            'channel_name' => 'Smoothfm 95.3 Sydney',
+            'channel_url' => 'https://19793.live.streamtheworld.com/SMOOTH953_AAC48.aac?src=neweb',
             'play' => '0',
         ]);
 
