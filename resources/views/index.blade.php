@@ -48,8 +48,8 @@ $(function(){
         var clickIndex = $('.play').index(this);
         var playIndex = $('.chid').eq(clickIndex).val();
         var data = $("#channel-form"+playIndex).serialize();
-        $('.play').eq(playIndex).css({'display':'none'});
-        $('.stop').eq(playIndex).css({'display':'inline-block'});
+        $('.play').eq(clickIndex).css({'display':'none'});
+        $('.stop').eq(clickIndex).css({'display':'inline-block'});
         $.ajax({
             type: "post",
             url: "/play",
@@ -71,8 +71,8 @@ $(function(){
         var clickIndex = $('.stop').index(this);
         var stopIndex = $('.chid').eq(clickIndex).val();
         var data2 = $("#channel-form"+stopIndex).serialize();
-        $('.play').eq(stopIndex).css({'display':'inline-block'});
-        $('.stop').eq(stopIndex).css({'display':'none'});
+        $('.play').eq(clickIndex).css({'display':'inline-block'});
+        $('.stop').eq(clickIndex).css({'display':'none'});
         $.ajax({
             type: "post",
             url: "/stop",
