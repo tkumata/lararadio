@@ -10,7 +10,6 @@
                     <div id="messages"></div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover">
                     @foreach ($channels as $channel)
                     <form method="post" id="channel-form{{$channel->id}}">
                         <input type="hidden" name="channel_id" value="{{$channel->id}}">
@@ -18,6 +17,7 @@
                         <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
                         <input type="hidden" class="chid" value="{{$channel->id}}">
                         {{ csrf_field() }}
+                        <table class="table table-striped table-hover">
                         <tr class="row">
                             <td><span>{{$channel->id}}</span></td>
                             <td>
@@ -39,9 +39,9 @@
                             </td>
                             <td><span>{{$channel->channel_name}}</span></td>
                         </tr>
+                        </table>
                     </form>
                     @endforeach
-                    </table>
                 </div>
                 <div class="text-center">{{ $channels->links() }}</div>
             </div>
