@@ -26,6 +26,12 @@ class ChannelTableSeeder extends Seeder
         ]);
         DB::table('channels')->insert([
             'public' => '1',
+            'channel_name' => '181 FM UK Top 40',
+            'channel_url' => 'http://listen.181fm.com/181-uktop40_128k.mp3',
+            'play' => '0',
+        ]);
+        DB::table('channels')->insert([
+            'public' => '1',
             'channel_name' => '181 FM Breeze',
             'channel_url' => 'http://listen.181fm.com/181-breeze_128k.mp3',
             'play' => '0',
@@ -58,12 +64,6 @@ class ChannelTableSeeder extends Seeder
             'public' => '1',
             'channel_name' => 'AFN Voice',
             'channel_url' => 'http://16603.live.streamtheworld.com/AFN_VCE.mp3',
-            'play' => '0',
-        ]);
-        DB::table('channels')->insert([
-            'public' => '1',
-            'channel_name' => 'Smoothfm 95.3 Sydney',
-            'channel_url' => 'https://19793.live.streamtheworld.com/SMOOTH953_AAC48.aac?src=neweb',
             'play' => '0',
         ]);
 
