@@ -38,7 +38,7 @@
                     </form>
                     @endforeach
                 </div>
-                <div class="text-center">{{ $channels->links() }}</div>
+                <div class="text-center">{{$channels->links()}}</div>
             </div>
         </div>
     </div>
