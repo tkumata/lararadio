@@ -34,7 +34,7 @@ class ChannelsController extends Controller
                 $live = "";
             }
 
-            if (!empty($request->channnel_url)) {
+            if (!empty($request->channel_url)) {
                 /**
                  * @todo Laravel 的に mplayer がデバイスを掴むのが気に入らないのかプロセスが裏に回らない。
                  * 別途 artisan command でも作成して、それをキックするようにしよう。
