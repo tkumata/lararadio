@@ -48,7 +48,7 @@ class ChannelsController extends Controller
             $process = new Process($cmd);
             $process->disableOutput();
             $process->start();
-    }
+        }
 
         return response()->json([
             'channel_id' => $request->channel_id,
@@ -65,12 +65,16 @@ class ChannelsController extends Controller
         // $process = new Process('/usr/bin/killall rtmpdump');
         // $process->disableOutput();
         // $process->start();
+
         $mplayerProcess = new Process('/usr/bin/killall mplayer');
         $mplayerProcess->disableOutput();
         $mplayerProcess->start();
-        $mplayerProcess = new Process('/usr/bin/killall python');
-        $mplayerProcess->disableOutput();
-        $mplayerProcess->start();
+
+        if (!empty($request->channel_url)) {
+            $mplayerProcess = new Process('/usr/bin/killall python');
+            $mplayerProcess->disableOutput();
+            $mplayerProcess->start();
+        }
 
         return response()->json([
             'channel_id' => $request->channel_id,
