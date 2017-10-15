@@ -33,16 +33,22 @@ class ChannelsController extends Controller
             } else {
                 $live = "";
             }
-            // $cmd = 'nohup sh -c "rtmpdump -q --live -r '.$request->channel_url.' -o - | mplayer -really-quiet -novideo -af volnorm=2:0.20 - >/dev/null 2>&1 &" >/dev/null 2>&1 &';
-            $cmd = 'nohup mplayer -really-quiet -novideo -af volnorm=2:0.15 "'.$request->channel_url.$live.'" > /dev/null 2>&1 &';
-            /**
-             * @todo Laravel 的に mplayer がデバイスを掴むのが気に入らないのかプロセスが裏に回らない。
-             * 別途 artisan command でも作成して、それをキックするようにしよう。
-             */
+
+            if (!empty($request->channnel_url)) {
+                /**
+                 * @todo Laravel 的に mplayer がデバイスを掴むのが気に入らないのかプロセスが裏に回らない。
+                 * 別途 artisan command でも作成して、それをキックするようにしよう。
+                 */
+                // $cmd = 'nohup sh -c "rtmpdump -q --live -r '.$request->channel_url.' -o - | mplayer -really-quiet -novideo -af volnorm=2:0.20 - >/dev/null 2>&1 &" >/dev/null 2>&1 &';
+                $cmd = 'nohup mplayer -really-quiet -novideo -af volnorm=2:0.15 "'.$request->channel_url.$live.'" > /dev/null 2>&1 &';
+            } else {
+                $cmd = 'nohup /home/pi/bin/led_fire/led_fire.py > /dev/null 2>&1 &';
+            }
+
             $process = new Process($cmd);
             $process->disableOutput();
             $process->start();
-        }
+    }
 
         return response()->json([
             'channel_id' => $request->channel_id,
@@ -60,6 +66,9 @@ class ChannelsController extends Controller
         // $process->disableOutput();
         // $process->start();
         $mplayerProcess = new Process('/usr/bin/killall mplayer');
+        $mplayerProcess->disableOutput();
+        $mplayerProcess->start();
+        $mplayerProcess = new Process('/usr/bin/killall python');
         $mplayerProcess->disableOutput();
         $mplayerProcess->start();
 

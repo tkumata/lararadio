@@ -14,6 +14,12 @@ class ChannelTableSeeder extends Seeder
         //
         DB::table('channels')->insert([
             'public' => '1',
+            'channel_name' => 'LED Fire',
+            'channel_url' => '',
+            'play' => '0',
+        ]);
+        DB::table('channels')->insert([
+            'public' => '1',
             'channel_name' => 'A&G',
             'channel_url' => 'rtmp://fms-base1.mitene.ad.jp/agqr/aandg22',
             'play' => '0',
