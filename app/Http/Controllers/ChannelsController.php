@@ -59,22 +59,18 @@ class ChannelsController extends Controller
     {
         //
         $ch = Channels::find($request->channel_id);
+        $ch->play = '0';
+        $result = $ch->save();
 
         // $process = new Process('/usr/bin/killall rtmpdump');
         // $process->disableOutput();
         // $process->start();
 
         if (empty($request->channel_url)) {
-            $ch->play = '0';
-            $result = $ch->save();
-
             $mplayerProcess = new Process('/usr/bin/killall python');
             $mplayerProcess->disableOutput();
             $mplayerProcess->start();
         } else {
-            $ch->play = '0';
-            $result = $ch->save();
-
             $mplayerProcess = new Process('/usr/bin/killall mplayer');
             $mplayerProcess->disableOutput();
             $mplayerProcess->start();

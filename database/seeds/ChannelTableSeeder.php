@@ -14,7 +14,7 @@ class ChannelTableSeeder extends Seeder
         //
         DB::table('channels')->insert([
             'public' => '1',
-            'channel_name' => 'LED Fire, It make a LED illumine like fire.',
+            'channel_name' => 'LED Fire, It makes a LED illumine like fire.',
             'channel_url' => '',
             'play' => '0',
         ]);
@@ -28,6 +28,12 @@ class ChannelTableSeeder extends Seeder
             'public' => '1',
             'channel_name' => '181 FM Rock',
             'channel_url' => 'http://listen.181fm.com/181-rock_128k.mp3',
+            'play' => '0',
+        ]);
+        DB::table('channels')->insert([
+            'public' => '1',
+            'channel_name' => '181 FM Beatles',
+            'channel_url' => 'http://listen.181fm.com/181-beatles_128k.mp3',
             'play' => '0',
         ]);
         DB::table('channels')->insert([
