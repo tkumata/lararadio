@@ -1,6 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .scrollable {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+        height: 100%;
+        background: #fff;
+    }
+
+    .wrap {
+        min-height: 100%;
+        padding-bottom: 1px;
+        background: #f5f5f5;
+        -webkit-transform: translateZ(0);
+    }
+
+    .pull-to-refresh {
+        height: 40px;
+        width: 100%; 
+        
+        position: absolute; 
+        left: 0; 
+        top: -40px;
+
+        z-index: -1;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
