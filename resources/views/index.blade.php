@@ -49,8 +49,10 @@ $(function(){
         var clickIndex = $('.play').index(this);
         var playIndex = $('.chid').eq(clickIndex).val();
         var data = $("#channel-form"+playIndex).serialize();
+
         $('.play').eq(clickIndex).css({'display':'none'});
         $('.stop').eq(clickIndex).css({'display':'inline-block'});
+
         $.ajax({
             type: "post",
             url: "/play",
@@ -62,9 +64,11 @@ $(function(){
                 $("#messages").html('処理に失敗しました');
             }
         });
+
         setTimeout(function(){
             location.reload();
         },777);
+
     });
 
     $(document).on('click', '.stop', function(e){
@@ -72,8 +76,10 @@ $(function(){
         var clickIndex = $('.stop').index(this);
         var stopIndex = $('.chid').eq(clickIndex).val();
         var data2 = $("#channel-form"+stopIndex).serialize();
+
         $('.play').eq(clickIndex).css({'display':'inline-block'});
         $('.stop').eq(clickIndex).css({'display':'none'});
+
         $.ajax({
             type: "post",
             url: "/stop",
@@ -87,6 +93,19 @@ $(function(){
                 $("#messages").html('処理に失敗しました');
             }
         });
+
+    });
+
+    $('.scrollable').pullToRefresh({
+        callback: function() {
+            var def = $.Deferred();
+            
+            setTimeout(function() {
+                def.resolve();
+            }, 3000); 
+
+            return def.promise();
+        }
     });
 });
 </script>
