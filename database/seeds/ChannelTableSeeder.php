@@ -26,6 +26,12 @@ class ChannelTableSeeder extends Seeder
         ]);
         DB::table('channels')->insert([
             'public' => '1',
+            'channel_name' => '977 Hits',
+            'channel_url' => 'http://19353.live.streamtheworld.com/977_HITSAAC_SC?ua=RadioTime&ttag=RadioTime&DIST=TuneIn&TGT=TuneIn&maxServers=2',
+            'play' => '0',
+        ]);
+        DB::table('channels')->insert([
+            'public' => '1',
             'channel_name' => '181 FM Rock',
             'channel_url' => 'http://listen.181fm.com/181-rock_128k.mp3',
             'play' => '0',
