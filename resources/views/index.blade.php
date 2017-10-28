@@ -55,10 +55,13 @@ $(function(){
 
         $.ajax({
             type: "post",
-            url: "/play",
+            dataType: 'json',
+            url: '/play',
             data: data,
             async: true,
             success: function(json){
+                $("#messages").html('Now playing '+json.channel_name);
+                return;
             },
             error:function(){
                 $("#messages").html('処理に失敗しました');
@@ -81,13 +84,15 @@ $(function(){
         $('.stop').eq(clickIndex).css({'display':'none'});
 
         $.ajax({
-            type: "post",
-            url: "/stop",
+            type: 'post',
+            dataType: 'json',
+            url: '/stop',
             data: data2,
             async: true,
             success: function(json){
             //    var htmlid = 'icon' + json['channel_id'];
             //    $("#"+htmlid).html('');
+                $("#messages").html('');
             },
             error:function(){
                 $("#messages").html('処理に失敗しました');
