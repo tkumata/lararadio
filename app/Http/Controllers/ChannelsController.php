@@ -41,19 +41,19 @@ class ChannelsController extends Controller
             if (!empty($request->channel_url)) {
                 /**
                  * @todo Laravel 的に mplayer がデバイスを掴むのが気に入らないのかプロセスが裏に回らない。
-                 * 別途 artisan command でも作成して、それをキックするようにしよう。
+                 * ↓
+                 * usermod -G www-data,audio www-data を実行する。
                  */
-                // $cmd = 'nohup sh -c "rtmpdump -q --live -r '.$request->channel_url.' -o - | mplayer -really-quiet -novideo -af volnorm=2:0.20 - >/dev/null 2>&1 &" >/dev/null 2>&1 &';
-                // $cmd = 'nohup mplayer -really-quiet -novideo -af volnorm=2:0.15 "'.$request->channel_url.$live.'" > /dev/null 2>&1 &';
-                $cmd = 'mplayer -really-quiet -novideo -af volnorm=2:0.35 "'.$request->channel_url.$live.'"';
+                $cmd = 'mplayer -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
             } else {
                 #$cmd = 'nohup /home/pi/bin/led_fire/led_fire.py > /dev/null 2>&1 &';
                 $cmd = '/home/pi/bin/led_fire/led_fire.py';
             }
 
-            $process = new Process($cmd . ' < /dev/null > /dev/null 2>&1 &');
-            $process->disableOutput();
-            $process->start();
+            // $process = new Process('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
+            // $process->disableOutput();
+            // $process->start();
+            exec('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
         }
 
         return response()->json([
@@ -84,6 +84,7 @@ class ChannelsController extends Controller
         }
 
         return response()->json([
+            'channel_name' => $ch->channel_name,
             'channel_id' => $request->channel_id,
         ]);
     }

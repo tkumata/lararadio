@@ -68,9 +68,11 @@ $(function(){
             }
         });
 
+/*
         setTimeout(function(){
             location.reload();
         },777);
+*/
 
     });
 
