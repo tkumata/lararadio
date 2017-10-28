@@ -46,13 +46,13 @@ class ChannelsController extends Controller
                  */
                 $cmd = 'mplayer -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
             } else {
-                #$cmd = 'nohup /home/pi/bin/led_fire/led_fire.py > /dev/null 2>&1 &';
                 $cmd = '/home/pi/bin/led_fire/led_fire.py';
             }
 
             // $process = new Process('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
             // $process->disableOutput();
             // $process->start();
+
             exec('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
         }
 
