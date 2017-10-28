@@ -44,14 +44,14 @@ class ChannelsController extends Controller
                  * 別途 artisan command でも作成して、それをキックするようにしよう。
                  */
                 // $cmd = 'nohup sh -c "rtmpdump -q --live -r '.$request->channel_url.' -o - | mplayer -really-quiet -novideo -af volnorm=2:0.20 - >/dev/null 2>&1 &" >/dev/null 2>&1 &';
-                #$cmd = 'nohup mplayer -really-quiet -novideo -af volnorm=2:0.15 "'.$request->channel_url.$live.'" > /dev/null 2>&1 &';
+                // $cmd = 'nohup mplayer -really-quiet -novideo -af volnorm=2:0.15 "'.$request->channel_url.$live.'" > /dev/null 2>&1 &';
                 $cmd = 'mplayer -really-quiet -novideo -af volnorm=2:0.35 "'.$request->channel_url.$live.'"';
             } else {
                 #$cmd = 'nohup /home/pi/bin/led_fire/led_fire.py > /dev/null 2>&1 &';
                 $cmd = '/home/pi/bin/led_fire/led_fire.py';
             }
 
-            $process = new Process($cmd . ' > /dev/null 2>&1 &');
+            $process = new Process($cmd . ' < /dev/null > /dev/null 2>&1 &');
             $process->disableOutput();
             $process->start();
         }
