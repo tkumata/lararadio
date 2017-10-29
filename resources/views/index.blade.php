@@ -59,12 +59,12 @@ $(function(){
             url: '/play',
             data: data,
             async: true,
+            timeout: 1000,
             success: function(json){
                 $("#messages").html('Now playing '+json.channel_name);
-                return;
             },
             error:function(){
-                $("#messages").html('処理に失敗しました');
+                $("#messages").html('Now playing '+json.channel_name);
             }
         });
 
