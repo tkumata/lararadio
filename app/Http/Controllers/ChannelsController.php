@@ -39,33 +39,29 @@ class ChannelsController extends Controller
             }
 
             if (!empty($request->channel_url)) {
-                /**
-                 * @todo Laravel 的に mplayer がデバイスを掴むのが気に入らないのかプロセスが裏に回らない。
-                 */
                 $cmd = 'mplayer -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
             } else {
                 $cmd = '/home/pi/bin/led_fire/led_fire.py';
             }
 
-            $process = new Process('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
-            $process->disableOutput();
-            $process->start(function(){
-                // error_log("start cmd.\n", 3, "/tmp/aaa");
-                return response()->json([
-                    'channel_name' => $ch->channel_name,
-                    'channel_id' => $request->channel_id,
-                ]);
-            });
-
-            // $tmp = exec('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
+            /**
+             * @todo Laravel 的に mplayer がデバイスを掴むのが気に入らないのかプロセスが裏に回らない。
+             */
+            // $process = new Process('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
+            // $process->disableOutput();
+            // $process->start(function(){
+            //     return response()->json([
+            //         'channel_name' => $ch->channel_name,
+            //         'channel_id' => $request->channel_id,
+            //     ]);
+            // });
+            $tmp = exec('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
         }
 
-/*
         return response()->json([
             'channel_name' => $ch->channel_name,
             'channel_id' => $request->channel_id,
         ]);
-*/
     }
 
     public function stop(Request $request)
