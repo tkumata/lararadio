@@ -48,15 +48,15 @@ class ChannelsController extends Controller
             /**
              * @todo Laravel 的に mplayer がデバイスを掴むのが気に入らないのかプロセスが裏に回らない。
              */
-            // $process = new Process('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
-            // $process->disableOutput();
-            // $process->start(function(){
-            //     return response()->json([
-            //         'channel_name' => $ch->channel_name,
-            //         'channel_id' => $request->channel_id,
-            //     ]);
-            // });
-            exec('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
+            $process = new Process('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
+            $process->disableOutput();
+            $process->start(function(){
+                return response()->json([
+                    'channel_name' => $ch->channel_name,
+                    'channel_id' => $request->channel_id,
+                ]);
+            });
+            // exec('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
         }
 
         return response()->json([

@@ -59,9 +59,9 @@ $(function(){
             url: '/play',
             data: data,
             async: true,
-            // timeout: 5000,
+            timeout: 5000,
             done: function(json){
-                $("#messages").html('Success.');
+                $("#messages").html('Now playing '+json.channel_name);
             },
             fail:function(json){
                 $("#messages").html('Error.');
