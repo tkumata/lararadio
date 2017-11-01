@@ -81,9 +81,9 @@ class ChannelsController extends Controller
             $mplayerProcess->disableOutput();
             $mplayerProcess->start();
         } else {
-            $mplayerProcess = new Process('/usr/bin/killall omxplayer.bin');
-            $mplayerProcess->disableOutput();
-            $mplayerProcess->start();
+            // $mplayerProcess = new Process('/usr/bin/killall omxplayer.bin');
+            // $mplayerProcess->disableOutput();
+            // $mplayerProcess->start();
             $mplayerProcess = new Process('/usr/bin/killall mplayer');
             $mplayerProcess->disableOutput();
             $mplayerProcess->start();
