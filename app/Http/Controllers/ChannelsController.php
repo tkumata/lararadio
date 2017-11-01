@@ -32,16 +32,15 @@ class ChannelsController extends Controller
         $result = $ch->save();
 
         if (strtoupper(PHP_OS) === 'LINUX') {
-            if (preg_match("/^rtmp/", $request->channel_url)) {
-                // $live = " live=1";
-                $live = "";
+            if (preg_match("/aandg22$/", $request->channel_url)) {
+                $live = " live=1";
             } else {
                 $live = "";
             }
 
             if (!empty($request->channel_url)) {
-                // $cmd = 'mplayer -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
-                $cmd = 'omxplayer "'.$request->channel_url.$live.'"';
+                $cmd = 'mplayer -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
+                // $cmd = 'omxplayer "'.$request->channel_url.'"';
             } else {
                 $cmd = '/home/pi/bin/led_fire/led_fire.py';
             }
@@ -57,7 +56,7 @@ class ChannelsController extends Controller
             //         'channel_id' => $request->channel_id,
             //     ]);
             // });
-            $tmp = exec('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
+            exec('nohup ' . $cmd . ' < /tmp/fifo & echo -n "." > /tmp/fifo > /dev/null 2>&1 &');
         }
 
         return response()->json([
@@ -82,7 +81,10 @@ class ChannelsController extends Controller
             $mplayerProcess->disableOutput();
             $mplayerProcess->start();
         } else {
-            $mplayerProcess = new Process('/usr/bin/killall omxplayer');
+            $mplayerProcess = new Process('/usr/bin/killall omxplayer.bin');
+            $mplayerProcess->disableOutput();
+            $mplayerProcess->start();
+            $mplayerProcess = new Process('/usr/bin/killall mplayer');
             $mplayerProcess->disableOutput();
             $mplayerProcess->start();
         }
