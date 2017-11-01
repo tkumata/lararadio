@@ -59,7 +59,7 @@ $(function(){
             url: '/play',
             data: data,
             async: true,
-            timeout: 5000,
+            // timeout: 5000,
             done: function(json){
                 $("#messages").html('Success.');
             },
