@@ -39,7 +39,7 @@ class ChannelsController extends Controller
             }
 
             if (!empty($request->channel_url)) {
-                $cmd = 'mplayer -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
+                $cmd = 'mplayer -slave -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
                 // $cmd = 'omxplayer "'.$request->channel_url.'"';
             } else {
                 $cmd = '/home/pi/bin/led_fire/led_fire.py';
@@ -56,7 +56,7 @@ class ChannelsController extends Controller
             //         'channel_id' => $request->channel_id,
             //     ]);
             // });
-            exec('' . $cmd . ' </tmp/fifo >/dev/null 2>&1 & echo -n "" > /tmp/fifo');
+            exec('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
         }
 
         return response()->json([
