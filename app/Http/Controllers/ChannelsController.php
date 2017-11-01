@@ -33,13 +33,15 @@ class ChannelsController extends Controller
 
         if (strtoupper(PHP_OS) === 'LINUX') {
             if (preg_match("/^rtmp/", $request->channel_url)) {
-                $live = " live=1";
+                // $live = " live=1";
+                $live = "";
             } else {
                 $live = "";
             }
 
             if (!empty($request->channel_url)) {
-                $cmd = 'mplayer -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
+                // $cmd = 'mplayer -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
+                $cmd = 'omxplayer "'.$request->channel_url.$live.'"';
             } else {
                 $cmd = '/home/pi/bin/led_fire/led_fire.py';
             }
