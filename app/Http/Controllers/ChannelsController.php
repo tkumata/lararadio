@@ -50,6 +50,7 @@ class ChannelsController extends Controller
             $process = new Process('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
             $process->disableOutput();
             $process->start(function(){
+                // error_log("start cmd.\n", 3, "/tmp/aaa");
                 return response()->json([
                     'channel_name' => $ch->channel_name,
                     'channel_id' => $request->channel_id,
@@ -59,10 +60,12 @@ class ChannelsController extends Controller
             // $tmp = exec('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
         }
 
+/*
         return response()->json([
             'channel_name' => $ch->channel_name,
             'channel_id' => $request->channel_id,
         ]);
+*/
     }
 
     public function stop(Request $request)
