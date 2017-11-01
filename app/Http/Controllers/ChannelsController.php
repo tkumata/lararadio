@@ -56,7 +56,7 @@ class ChannelsController extends Controller
             //         'channel_id' => $request->channel_id,
             //     ]);
             // });
-            exec('' . $cmd . ' < /tmp/fifo & echo -n "." > /tmp/fifo > /dev/null 2>&1 &');
+            exec('' . $cmd . ' </tmp/fifo >/dev/null 2>&1 & echo -n "" > /tmp/fifo');
         }
 
         return response()->json([
