@@ -59,11 +59,14 @@ $(function(){
             url: '/play',
             data: data,
             async: true,
-            timeout: 1000,
-            success: function(json){
-                $("#messages").html('Now playing '+json.channel_name);
+            timeout: 3000,
+            done: function(json){
+                $("#messages").html('Success.');
             },
-            error:function(){
+            fail:function(json){
+                $("#messages").html('Error.');
+            },
+            always:function(json){
                 $("#messages").html('Now playing '+json.channel_name);
             }
         });
@@ -80,7 +83,7 @@ $(function(){
         // $('.icon').html('');
         var clickIndex = $('.stop').index(this);
         var stopIndex = $('.chid').eq(clickIndex).val();
-        var data2 = $("#channel-form"+stopIndex).serialize();
+        var data = $("#channel-form"+stopIndex).serialize();
 
         $('.play').eq(clickIndex).css({'display':'inline-block'});
         $('.stop').eq(clickIndex).css({'display':'none'});
@@ -89,15 +92,17 @@ $(function(){
             type: 'post',
             dataType: 'json',
             url: '/stop',
-            data: data2,
+            data: data,
             async: true,
-            success: function(json){
-            //    var htmlid = 'icon' + json['channel_id'];
-            //    $("#"+htmlid).html('');
+            timeout: 3000,
+            done:function(){
                 $("#messages").html('');
             },
-            error:function(){
+            fail:function(){
                 $("#messages").html('処理に失敗しました');
+            },
+            always:function(){
+                $("#messages").html('');
             }
         });
 
