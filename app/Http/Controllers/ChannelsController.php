@@ -39,8 +39,9 @@ class ChannelsController extends Controller
             }
 
             if (!empty($request->channel_url)) {
-                $cmd = 'mplayer -slave -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
+                // $cmd = 'mplayer -slave -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
                 // $cmd = 'omxplayer "'.$request->channel_url.'"';
+                $cmd = storage_path('app/public/').'play.sh ' . $request->channel_url.$live;
             } else {
                 $cmd = '/home/pi/bin/led_fire/led_fire.py';
             }
@@ -48,21 +49,16 @@ class ChannelsController extends Controller
             /**
              * @todo Laravel 的に mplayer がデバイスを掴むのが気に入らないのかプロセスが裏に回らない。
              */
-            $process = new Process('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
-            $process->disableOutput();
-            $process->start(function(){
-                return response()->json([
-                    'channel_name' => $ch->channel_name,
-                    'channel_id' => $request->channel_id,
-                ]);
-            });
-            // exec('nohup ' . $cmd . ' < /dev/null > /dev/null 2>&1 &');
+            // $process = new Process($cmd.' > /dev/null 2>&1 &');
+            // $process->disableOutput();
+            // $process->start();
+            exec($cmd);
         }
 
-        return response()->json([
+        return [
             'channel_name' => $ch->channel_name,
-            'channel_id' => $request->channel_id,
-        ]);
+            'channel_id' => $request->channel_id
+        ];
     }
 
     public function stop(Request $request)

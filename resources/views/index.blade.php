@@ -59,15 +59,11 @@ $(function(){
             url: '/play',
             data: data,
             async: true,
-            timeout: 5000,
-            done: function(json){
-                $("#messages").html('Now playing '+json.channel_name);
+            timeout: 1000,
+            success:function(json){
+                // $("#messages").html('Now playing '+json.channel_name);
             },
-            fail:function(json){
-                $("#messages").html('Error.');
-            },
-            always:function(json){
-                $("#messages").html('Now playing '+json.channel_name);
+            error:function(json){
             }
         });
 
@@ -95,14 +91,11 @@ $(function(){
             data: data,
             async: true,
             timeout: 3000,
-            done:function(){
+            success:function(){
                 $("#messages").html('');
             },
-            fail:function(){
+            error:function(){
                 $("#messages").html('処理に失敗しました');
-            },
-            always:function(){
-                $("#messages").html('');
             }
         });
 
