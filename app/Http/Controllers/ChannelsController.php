@@ -41,7 +41,7 @@ class ChannelsController extends Controller
             if (!empty($request->channel_url)) {
                 // $cmd = 'mplayer -slave -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
                 // $cmd = 'omxplayer "'.$request->channel_url.'"';
-                $cmd = storage_path('app/public/').'play.sh ' . $request->channel_url.$live;
+                $cmd = storage_path('/').'play.sh ' . $request->channel_url.$live;
             } else {
                 $cmd = '/home/pi/bin/led_fire/led_fire.py';
             }
