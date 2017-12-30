@@ -46,6 +46,8 @@ phpcs.xml
 </ruleset>
 ```
 
+Visual Studio Code Setting
+
 ```
 "phpcs.standard": "./phpcs.xml"
 ```
