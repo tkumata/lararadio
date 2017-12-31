@@ -9,9 +9,13 @@
 
 # Lararadio
 
-Internet radio player which has web broweser UI.
+Internet radio player which has a UI as web broweser on Raspberry Pi. So your smartphone or PC become remote controller like a following image.
 
-# 
+# Screenshot
+
+!["Screenshot"](./screenshot01.png)
+
+# PSR-2
 
 ```
 composer require --dev squizlabs/php_codesniffer
@@ -41,6 +45,8 @@ phpcs.xml
     <exclude-pattern>vendor/</exclude-pattern>
 </ruleset>
 ```
+
+Visual Studio Code Setting
 
 ```
 "phpcs.standard": "./phpcs.xml"
