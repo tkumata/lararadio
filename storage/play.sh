@@ -6,8 +6,8 @@ url=$1
 opt=$2
 
 if [ ! -z "$opt" ]; then
-    #nohup $cmd "$url $opt" < /dev/null > /dev/null 2>&1 &
-    nohup $cmd "$url" < /dev/null > /dev/null 2>&1 &
+    nohup $cmd "$url $opt" < /dev/null > /dev/null 2>&1 &
+    #nohup $cmd "$url" < /dev/null > /dev/null 2>&1 &
 else
     nohup $cmd "$url" < /dev/null > /dev/null 2>&1 &
 fi
