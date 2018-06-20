@@ -12,20 +12,6 @@ class ChannelTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('channels')->insert([
-            'public' => '1',
-            'channel_name' => 'LED Fire, It makes a LED illumine like fire.',
-            'channel_url' => '',
-            'play' => '0',
-        ]);
-
-        DB::table('channels')->insert([
-            'public' => '1',
-            'channel_name' => 'A & G, sound only',
-            'channel_url' => 'rtmp://fms-base1.mitene.ad.jp/agqr/aandg22',
-            'play' => '0',
-        ]);
-
         $url_977hits = 'http://19353.live.streamtheworld.com/977_HITSAAC_SC';
         $url_977hits .= '?ua=RadioTime&ttag=RadioTime&DIST=TuneIn&TGT=TuneIn&maxServers=2';
         DB::table('channels')->insert([
@@ -95,6 +81,20 @@ class ChannelTableSeeder extends Seeder
             'public' => '1',
             'channel_name' => 'AFN Voice',
             'channel_url' => 'http://16603.live.streamtheworld.com/AFN_VCE.mp3',
+            'play' => '0',
+        ]);
+
+        DB::table('channels')->insert([
+            'public' => '1',
+            'channel_name' => 'LED Fire, It makes a LED illumine like fire.',
+            'channel_url' => '',
+            'play' => '0',
+        ]);
+
+        DB::table('channels')->insert([
+            'public' => '1',
+            'channel_name' => 'A & G, sound only',
+            'channel_url' => 'rtmp://fms-base1.mitene.ad.jp/agqr/aandg22',
             'play' => '0',
         ]);
     }

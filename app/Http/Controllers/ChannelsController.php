@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Channels;
+use Log;
 use Symfony\Component\Process\Process;
 
 class ChannelsController extends Controller
@@ -31,29 +32,33 @@ class ChannelsController extends Controller
         $ch->play = '1';
         $result = $ch->save();
 
-        if (strtoupper(PHP_OS) === 'LINUX') {
-            if (preg_match("/aandg22$/", $request->channel_url)) {
-                $live = " live=1";
-            } else {
-                $live = "";
-            }
+        if (preg_match("/aandg22$/", $request->channel_url)) {
+            $live = " live=1";
+        } else {
+            $live = "";
+        }
 
+        if (strtoupper(PHP_OS) === 'LINUX') {
             if (!empty($request->channel_url)) {
-                // $cmd = 'mplayer -slave -really-quiet -novideo -af volnorm=2:0.25 "'.$request->channel_url.$live.'"';
+                $cmd = 'mplayer -really-quiet -vo null -af volnorm=2:0.25 "'.
+                    $request->channel_url.$live.
+                    '"';
                 // $cmd = 'omxplayer "'.$request->channel_url.'"';
-                $cmd = storage_path('/').'play.sh ' . $request->channel_url.$live;
+                // $cmd = storage_path('/').'play.sh ' . $request->channel_url.$live;
             } else {
                 $cmd = '/home/pi/bin/led_fire/led_fire.py';
             }
-
-            /**
-             * @todo Laravel 的に mplayer がデバイスを掴むのが気に入らないのかプロセスが裏に回らない。
-             */
-            // $process = new Process($cmd.' > /dev/null 2>&1 &');
-            // $process->disableOutput();
-            // $process->start();
-            exec($cmd);
+        } else {
+            $cmd = '/usr/bin/open -a "QuickTime Player" '.$request->channel_url.$live;
         }
+
+        /**
+         * @todo Laravel 的に mplayer がデバイスを掴むのが気に入らないのかプロセスが裏に回らない。
+         */
+        // $process = new Process($cmd.' > /dev/null 2>&1 &');
+        // $process->disableOutput();
+        // $process->start();
+        exec($cmd);
 
         return [
             'channel_name' => $ch->channel_name,
@@ -72,17 +77,18 @@ class ChannelsController extends Controller
         // $process->disableOutput();
         // $process->start();
 
-        if (empty($request->channel_url)) {
-            $mplayerProcess = new Process('/usr/bin/killall python');
+        if (strtoupper(PHP_OS) === 'LINUX') {
+            if (empty($request->channel_url)) {
+                $mplayerProcess = new Process('/usr/bin/killall python');
+            } else {
+                $mplayerProcess = new Process('/usr/bin/killall mplayer');
+            }
+
             $mplayerProcess->disableOutput();
             $mplayerProcess->start();
         } else {
-            // $mplayerProcess = new Process('/usr/bin/killall omxplayer.bin');
-            // $mplayerProcess->disableOutput();
-            // $mplayerProcess->start();
-            $mplayerProcess = new Process('/usr/bin/killall mplayer');
-            $mplayerProcess->disableOutput();
-            $mplayerProcess->start();
+            $cmd = '/usr/bin/killall "QuickTime Player"';
+            exec($cmd);
         }
 
         return response()->json([
