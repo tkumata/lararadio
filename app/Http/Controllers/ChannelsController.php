@@ -55,7 +55,7 @@ class ChannelsController extends Controller
         }
 
         /**
-         * @todo Laravel 的に mplayer がデバイスを掴むのが気に入らないのかプロセスが裏に回らない。
+         * @todo Laravel 的に mplayer がデバイスを掴むのが気に入らないのか、プロセスが裏に回らないため return しない。
          */
         // $process = new Process($cmd.' > /dev/null 2>&1 &');
         // $process->disableOutput();
