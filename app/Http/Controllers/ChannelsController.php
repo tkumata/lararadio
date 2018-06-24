@@ -38,7 +38,9 @@ class ChannelsController extends Controller
             $live = "";
         }
 
-        if (strtoupper(PHP_OS) === 'LINUX') {
+        $osName = strtoupper(PHP_OS);
+
+        if ($osName === 'LINUX') {
             if (!empty($request->channel_url)) {
                 $cmd = 'mplayer -really-quiet -vo null -af volnorm=2:0.25 "'.
                     $request->channel_url.$live.
@@ -48,8 +50,8 @@ class ChannelsController extends Controller
             } else {
                 $cmd = '/home/pi/bin/led_fire/led_fire.py';
             }
-        } else {
-            $cmd = '/usr/bin/open -a "QuickTime Player" '.$request->channel_url.$live;
+        } elseif ($osName === 'DARWIN') {
+                $cmd = '/usr/bin/open -a "QuickTime Player" '.$request->channel_url.$live;
         }
 
         /**
@@ -77,7 +79,9 @@ class ChannelsController extends Controller
         // $process->disableOutput();
         // $process->start();
 
-        if (strtoupper(PHP_OS) === 'LINUX') {
+        $osName = strtoupper(PHP_OS);
+
+        if ($osName === 'LINUX') {
             if (empty($request->channel_url)) {
                 $mplayerProcess = new Process('/usr/bin/killall python');
             } else {
@@ -86,7 +90,7 @@ class ChannelsController extends Controller
 
             $mplayerProcess->disableOutput();
             $mplayerProcess->start();
-        } else {
+        } elseif ($osName === 'DARWIN') {
             $cmd = '/usr/bin/killall "QuickTime Player"';
             exec($cmd);
         }
