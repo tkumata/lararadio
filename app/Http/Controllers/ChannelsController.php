@@ -23,7 +23,9 @@ class ChannelsController extends Controller
 
     /**
      * Play sound Controller
+     *
      * @return json
+     * @todo api に入れよう。
      */
     public function play(Request $request)
     {
@@ -68,6 +70,12 @@ class ChannelsController extends Controller
         ];
     }
 
+    /**
+     * Stop sound Controller
+     *
+     * @return json
+     * @todo api に入れよう。
+     */
     public function stop(Request $request)
     {
         //
