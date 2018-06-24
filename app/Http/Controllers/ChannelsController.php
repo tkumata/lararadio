@@ -17,7 +17,7 @@ class ChannelsController extends Controller
     public function index()
     {
         //
-        $channels = Channels::where('public', '1')->paginate(5);
+        $channels = Channels::where('public', '1')->paginate(10);
         return view('index', compact('channels'));
     }
 
