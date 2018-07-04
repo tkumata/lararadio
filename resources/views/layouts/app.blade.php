@@ -101,7 +101,7 @@
                 async: true,
                 timeout: 1000,
                 success:function(json){
-                    // $("#messages").html('Now playing '+json.channel_name);
+                    $("#messages").html('Now playing '+json.channel_name);
                 },
                 error:function(json){
                 }
