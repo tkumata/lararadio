@@ -8,10 +8,17 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'LaraRadio') }}</title>
 
     <!-- Styles -->
+    <?php
+    preg_match('@https?://.*?/(.*$)@', url('/'), $tmp);
+    ?>
+    @if ($tmp[1])
+    <link href="{{ asset('css/app_subdir.css') }}" rel="stylesheet">
+    @else
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @endif
 </head>
 <body>
     <div id="app">
@@ -76,8 +83,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-<<<<<<< HEAD
-=======
     <script>
     $(function(){
         $(document).on('click', '.play', function(e){
@@ -134,6 +139,5 @@
         });
     });
     </script>
->>>>>>> 7398333fd1d8caae017d3cf8e4a009bfac594c65
 </body>
 </html>
