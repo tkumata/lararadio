@@ -76,5 +76,64 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+<<<<<<< HEAD
+=======
+    <script>
+    $(function(){
+        $(document).on('click', '.play', function(e){
+            var clickIndex = $('.play').index(this);
+            var playIndex = $('.chid').eq(clickIndex).val();
+            var data = $("#channel-form"+playIndex).serialize();
+
+            $('.play').eq(clickIndex).css({'display':'none'});
+            $('.stop').eq(clickIndex).css({'display':'inline-block'});
+
+            $.ajax({
+                type: "post",
+                dataType: 'json',
+                url: '{{ url('/') }}/play',
+                data: data,
+                async: true,
+                timeout: 1000,
+                success:function(json){
+                    $("#messages").html('Now playing '+json.channel_name);
+                },
+                error:function(json){
+                }
+            });
+
+            // setTimeout(function(){
+            //     location.reload();
+            // },777);
+        });
+
+        $(document).on('click', '.stop', function(e){
+            // $('.icon').html('');
+            var clickIndex = $('.stop').index(this);
+            var stopIndex = $('.chid').eq(clickIndex).val();
+            var data = $("#channel-form"+stopIndex).serialize();
+
+            $('.play').eq(clickIndex).css({'display':'inline-block'});
+            $('.stop').eq(clickIndex).css({'display':'none'});
+
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '{{ url('/') }}/stop',
+                data: data,
+                async: true,
+                timeout: 3000,
+                success:function(){
+                    $("#messages").html('');
+                },
+                error:function(){
+                    $("#messages").html('処理に失敗しました');
+                }
+            });
+
+        });
+    });
+    </script>
+>>>>>>> 7398333fd1d8caae017d3cf8e4a009bfac594c65
 </body>
 </html>
