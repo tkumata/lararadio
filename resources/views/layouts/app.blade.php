@@ -8,10 +8,15 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'LaraRadio') }}</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
     <?php
+    /**
+     * Checking home url (url('/')) is subdir or not.
+     *
+     * ex, http://localhost or http://localhost/lalaradio
+     */
     preg_match('@https?://.*?/(.*$)@', url('/'), $tmp);
     ?>
     @if ($tmp[1])
@@ -96,7 +101,7 @@
             $.ajax({
                 type: "post",
                 dataType: 'json',
-                url: '{{ url('/') }}/play',
+                url: '{{ url('/') }}/api/play',
                 data: data,
                 async: true,
                 timeout: 1000,
@@ -106,14 +111,9 @@
                 error:function(json){
                 }
             });
-
-            // setTimeout(function(){
-            //     location.reload();
-            // },777);
         });
 
         $(document).on('click', '.stop', function(e){
-            // $('.icon').html('');
             var clickIndex = $('.stop').index(this);
             var stopIndex = $('.chid').eq(clickIndex).val();
             var data = $("#channel-form"+stopIndex).serialize();
@@ -124,7 +124,7 @@
             $.ajax({
                 type: 'post',
                 dataType: 'json',
-                url: '{{ url('/') }}/stop',
+                url: '{{ url('/') }}/api/stop',
                 data: data,
                 async: true,
                 timeout: 3000,
