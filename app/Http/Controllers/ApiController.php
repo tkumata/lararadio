@@ -31,7 +31,7 @@ class ApiController extends Controller
 
         if ($osName === 'LINUX') {
             if (!empty($request->channel_url)) {
-                $cmd = 'nohup mplayer -really-quiet -vo null -af volnorm=2:0.25 "'.
+                $cmd = '/usr/bin/nohup /usr/bin/mplayer -really-quiet -vo null -af volnorm=2:0.25 "'.
                     $request->channel_url.$live.
                     '" < /dev/null > /dev/null 2>&1 &';
                 // $cmd = storage_path('/').'play.sh ' . $request->channel_url.$live;
