@@ -19,7 +19,7 @@
      */
     preg_match('@https?://.*?/(.*$)@', url('/'), $tmp);
     ?>
-    @if ($tmp[1])
+    @if (!empty($tmp) && $tmp[1])
     <link href="{{ asset('css/app_subdir.css') }}" rel="stylesheet">
     @else
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
