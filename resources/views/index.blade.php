@@ -9,7 +9,7 @@
                     Channels
                     <div id="messages">
                         @if (!empty($name))
-                        {{ $name }}
+                        Now playing {{ $name }}
                         @endif
                     </div>
                 </div>
