@@ -15,11 +15,11 @@
                 </div>
                 <div class="table-responsive">
                     @foreach ($channels as $channel)
-                    <form method="post" id="channel-form{{$channel->id}}">
-                        <input type="hidden" name="channel_id" value="{{$channel->id}}">
-                        <input type="hidden" name="channel_name" value="{{$channel->channel_name}}">
-                        <input type="hidden" name="channel_url" value="{{$channel->channel_url}}">
-                        <input type="hidden" class="chid" value="{{$channel->id}}">
+                    <form method="post" id="channel-form{{ $channel->id }}">
+                        <input type="hidden" name="channel_id" value="{{ $channel->id }}">
+                        <input type="hidden" name="channel_name" value="{{ $channel->channel_name }}">
+                        <input type="hidden" name="channel_url" value="{{ $channel->channel_url }}">
+                        <input type="hidden" class="chid" value="{{ $channel->id }}">
                         {{ csrf_field() }}
                         <div class="panel-body">
                             @if ($channel->play == 1)
@@ -37,12 +37,12 @@
                                 <span class="glyphicon glyphicon-stop"></span> Stop
                             </button>
                             @endif
-                            <span>{{$channel->channel_name}}</span>
+                            <span>{{ $channel->channel_name }}</span>
                         </div>
                     </form>
                     @endforeach
                 </div>
-                <div class="text-center">{{$channels->links()}}</div>
+                <div class="text-center">{{ $channels->links() }}</div>
             </div>
         </div>
     </div>
