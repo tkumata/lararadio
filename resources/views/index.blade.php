@@ -7,7 +7,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Channels
-                    <div id="messages"></div>
+                    <div id="messages">
+                        @if (!empty($name))
+                        {{ $name }}
+                        @endif
+                    </div>
                 </div>
                 <div class="table-responsive">
                     @foreach ($channels as $channel)
