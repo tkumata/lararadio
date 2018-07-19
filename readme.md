@@ -15,9 +15,11 @@ Internet radio player which has a UI as web broweser on Raspberry Pi. So your sm
 
 !["Screenshot"](./screenshot01.png)
 
-# PSR-2
+
+# Require
 
 ```
+composer require symfony/process
 composer require --dev squizlabs/php_codesniffer
 ```
 
