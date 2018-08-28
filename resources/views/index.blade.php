@@ -8,8 +8,9 @@
                 <div class="panel-heading">
                     Channels
                     <div id="messages">
+                        Now playing
                         @if (!empty($name))
-                        Now playing {{ $name }}
+                        @{{ result }}
                         @endif
                     </div>
                 </div>
@@ -30,7 +31,7 @@
                                 <span class="glyphicon glyphicon-stop"></span> Stop
                             </button>
                             @else
-                            <button class="btn btn-primary play" type="button">
+                            <button id="{{ $channel->id }}" class="btn btn-primary play" type="button" ng-click="onclick($event)">
                                 <span class="glyphicon glyphicon-play"></span> Play
                             </button>
                             <button class="btn btn-default stop" type="button" style="display:none;">
