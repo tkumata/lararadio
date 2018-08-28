@@ -36,7 +36,7 @@ class ApiController extends Controller
                     . '" < /dev/null > /dev/null 2>&1 &';
                 // $cmd = storage_path('/').'play.sh ' . $request->channel_url.$live;
             } else {
-                $cmd = 'nohup /home/pi/bin/led_fire/led_fire.py > /dev/null 2>&1 &';
+                $cmd = '/usr/bin/nohup /home/pi/bin/led_fire/led_fire.py > /dev/null 2>&1 &';
             }
         } elseif ($osName === 'DARWIN') {
             $cmd = '/usr/bin/open -a "QuickTime Player" '
