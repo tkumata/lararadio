@@ -100,7 +100,7 @@
     .controller('MyController', ['$scope', '$http', function($scope, $http) {
         $scope.result = "";
         $scope.start = function(event) {
-            var clickIndex = event.target.id - 1;
+            var clickIndex = $('.play').index(event.target);
             var playIndex = $('.chid').eq(clickIndex).val();
             var ddd = $("#channel-form"+playIndex).serialize();
             var top = "{{ url('/') }}";
@@ -122,7 +122,7 @@
         };
 
         $scope.stop = function(event) {
-            var clickIndex = event.target.id - 1;
+            var clickIndex = $('.stop').index(event.target);
             var playIndex = $('.chid').eq(clickIndex).val();
             var ddd = $("#channel-form"+playIndex).serialize();
             var top = "{{ url('/') }}";
