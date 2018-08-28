@@ -15,6 +15,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
+                    <?php $id = 1; ?>
                     @foreach ($channels as $channel)
                     <form method="post" id="channel-form{{ $channel->id }}">
                         <input type="hidden" name="channel_id" value="{{ $channel->id }}">
@@ -24,23 +25,24 @@
                         {{ csrf_field() }}
                         <div class="panel-body">
                             @if ($channel->play == 1)
-                            <button id="{{ $channel->id }}" class="btn btn-primary play" type="button" style="display:none;" ng-click="start($event)">
+                            <button id="{{ $id }}" class="btn btn-primary play" type="button" style="display:none;" ng-click="start($event)">
                                 <span class="glyphicon glyphicon-play"></span> Play
                             </button>
-                            <button id="{{ $channel->id }}" class="btn btn-default stop" type="button" ng-click="stop($event)">
+                            <button id="{{ $id }}" class="btn btn-default stop" type="button" ng-click="stop($event)">
                                 <span class="glyphicon glyphicon-stop"></span> Stop
                             </button>
                             @else
-                            <button id="{{ $channel->id }}" class="btn btn-primary play" type="button" ng-click="start($event)">
+                            <button id="{{ $id }}" class="btn btn-primary play" type="button" ng-click="start($event)">
                                 <span class="glyphicon glyphicon-play"></span> Play
                             </button>
-                            <button id="{{ $channel->id }}" class="btn btn-default stop" type="button" style="display:none;" ng-click="stop($event)">
+                            <button id="{{ $id }}" class="btn btn-default stop" type="button" style="display:none;" ng-click="stop($event)">
                                 <span class="glyphicon glyphicon-stop"></span> Stop
                             </button>
                             @endif
                             <span>{{ $channel->channel_name }}</span>
                         </div>
                     </form>
+                    <?php $id++; ?>
                     @endforeach
                 </div>
                 <div class="text-center">{{ $channels->links() }}</div>
