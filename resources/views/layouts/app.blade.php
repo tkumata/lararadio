@@ -93,30 +93,56 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
     // app.js
-    angular.module('myApp', [])
-        .controller('MyController', ['$scope', '$http', function($scope, $http) {
-            $scope.onclick = function(event) {
-                var clickIndex = event.target.id - 1;
-                var playIndex = $('.chid').eq(clickIndex).val();
-                var ddd = $("#channel-form"+playIndex).serialize();
-                var top = "{{ url('/') }}";
-                $('.play').eq(clickIndex).css({'display':'none'});
-                $('.stop').eq(clickIndex).css({'display':'inline-block'});
+    angular.module('myApp', [], function($interpolateProvider){
+        $interpolateProvider.startSymbol('<%');
+        $interpolateProvider.endSymbol('%>');
+    })
+    .controller('MyController', ['$scope', '$http', function($scope, $http) {
+        $scope.result = "";
+        $scope.start = function(event) {
+            var clickIndex = event.target.id - 1;
+            var playIndex = $('.chid').eq(clickIndex).val();
+            var ddd = $("#channel-form"+playIndex).serialize();
+            var top = "{{ url('/') }}";
+            $('.play').eq(clickIndex).css({'display':'none'});
+            $('.stop').eq(clickIndex).css({'display':'inline-block'});
 
-                $http({
-                    method: 'post',
-                    url: top+'/api/play',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-                    data: ddd
-                })
-                .success(function(data, status, headers, config){
-                    $("#messages").html('Now playing '+data.channel_name);
-                })
-                .error(function(data, status, headers, config){
-                    $scope.result = '通信失敗！';
-                });
-            };
-        }]);
+            $http({
+                method: 'post',
+                url: top+'/api/play',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                data: ddd
+            })
+            .success(function(data, status, headers, config){
+                $scope.result = data.channel_name;
+            })
+            .error(function(data, status, headers, config){
+                $scope.result = '通信失敗！';
+            });
+        };
+
+        $scope.stop = function(event) {
+            var clickIndex = event.target.id - 1;
+            var playIndex = $('.chid').eq(clickIndex).val();
+            var ddd = $("#channel-form"+playIndex).serialize();
+            var top = "{{ url('/') }}";
+            $('.play').eq(clickIndex).css({'display':'inline-block'});
+            $('.stop').eq(clickIndex).css({'display':'none'});
+
+            $http({
+                method: 'post',
+                url: top+'/api/stop',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                data: ddd
+            })
+            .success(function(data, status, headers, config){
+                $scope.result = "";
+            })
+            .error(function(data, status, headers, config){
+                $scope.result = '通信失敗！';
+            });
+        };
+    }]);
 
     $(function(){
         // $(document).on('click', '.play', function(e){
@@ -143,30 +169,30 @@
         //     });
         // });
 
-        $(document).on('click', '.stop', function(e){
-            var clickIndex = $('.stop').index(this);
-            var stopIndex = $('.chid').eq(clickIndex).val();
-            var data = $("#channel-form"+stopIndex).serialize();
+        // $(document).on('click', '.stop', function(e){
+        //     var clickIndex = $('.stop').index(this);
+        //     var stopIndex = $('.chid').eq(clickIndex).val();
+        //     var data = $("#channel-form"+stopIndex).serialize();
 
-            $('.play').eq(clickIndex).css({'display':'inline-block'});
-            $('.stop').eq(clickIndex).css({'display':'none'});
+        //     $('.play').eq(clickIndex).css({'display':'inline-block'});
+        //     $('.stop').eq(clickIndex).css({'display':'none'});
 
-            $.ajax({
-                type: 'post',
-                dataType: 'json',
-                url: '{{ url('/') }}/api/stop',
-                data: data,
-                async: true,
-                timeout: 3000,
-                success:function(){
-                    $("#messages").html('');
-                },
-                error:function(){
-                    $("#messages").html('処理に失敗しました');
-                }
-            });
+        //     $.ajax({
+        //         type: 'post',
+        //         dataType: 'json',
+        //         url: '{{ url('/') }}/api/stop',
+        //         data: data,
+        //         async: true,
+        //         timeout: 3000,
+        //         success:function(){
+        //             $("#messages").html('');
+        //         },
+        //         error:function(){
+        //             $("#messages").html('処理に失敗しました');
+        //         }
+        //     });
 
-        });
+        // });
     });
     </script>
 </body>

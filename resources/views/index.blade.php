@@ -8,9 +8,9 @@
                 <div class="panel-heading">
                     Channels
                     <div id="messages">
-                        Now playing
+                        Now playing: <% result %>
                         @if (!empty($name))
-                        @{{ result }}
+                        {{ $name }}
                         @endif
                     </div>
                 </div>
@@ -24,17 +24,17 @@
                         {{ csrf_field() }}
                         <div class="panel-body">
                             @if ($channel->play == 1)
-                            <button class="btn btn-primary play" type="button" style="display:none;">
+                            <button id="{{ $channel->id }}" class="btn btn-primary play" type="button" style="display:none;" ng-click="start($event)">
                                 <span class="glyphicon glyphicon-play"></span> Play
                             </button>
-                            <button class="btn btn-default stop" type="button">
+                            <button id="{{ $channel->id }}" class="btn btn-default stop" type="button" ng-click="stop($event)">
                                 <span class="glyphicon glyphicon-stop"></span> Stop
                             </button>
                             @else
-                            <button id="{{ $channel->id }}" class="btn btn-primary play" type="button" ng-click="onclick($event)">
+                            <button id="{{ $channel->id }}" class="btn btn-primary play" type="button" ng-click="start($event)">
                                 <span class="glyphicon glyphicon-play"></span> Play
                             </button>
-                            <button class="btn btn-default stop" type="button" style="display:none;">
+                            <button id="{{ $channel->id }}" class="btn btn-default stop" type="button" style="display:none;" ng-click="stop($event)">
                                 <span class="glyphicon glyphicon-stop"></span> Stop
                             </button>
                             @endif
