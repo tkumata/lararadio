@@ -10,6 +10,21 @@ use Symfony\Component\Process\Process;
 class ApiController extends Controller
 {
     /**
+     * Top
+     */
+    public function topindex()
+    {
+        $channels = Channels::where('public', '1')->paginate(5);
+        $playing = Channels::where('play', '1')->first();
+        $name = empty($playing) ? null : $playing->channel_name;
+
+        return response()->json([
+            'channels' => $channels,
+            'name' => $name
+        ]);
+    }
+
+    /**
      * Play sound Controller
      *
      * @return json

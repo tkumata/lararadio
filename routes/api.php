@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/play', 'ApiController@play');
 Route::post('/stop', 'ApiController@stop');
+
+Route::get('/topindex', 'ApiController@topindex');

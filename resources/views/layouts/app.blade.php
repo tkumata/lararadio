@@ -29,7 +29,7 @@
     <!-- angularJS -->
     <script src="//code.angularjs.org/1.5.7/angular.min.js"></script>
 </head>
-<body ng-controller="MyController">
+<body ng-controller="MyController" data-ng-init="init()">
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -104,6 +104,22 @@
         @else
         $scope.result = "";
         @endif
+
+        $scope.init = function(){
+            // check if there is query in url
+            // and fire search in case its value is not empty
+            var top = "{{ url('/') }}";
+            $http({
+                method: 'get',
+                url: top+'/api/topindex',
+            })
+            .success(function(data, status, headers, config){
+                $scope.channels = data.channels.data;
+            })
+            .error(function(data, status, headers, config){
+                $scope.result = '通信失敗！' + status;
+            });
+        };
 
         $scope.start = function(event){
             var clickIndex = $('.play').index(event.target);
