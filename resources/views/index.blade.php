@@ -9,9 +9,6 @@
                     Channels
                     <div id="messages">
                         Now playing: <% result %>
-                        @if (!empty($name))
-                        {{ $name }}
-                        @endif
                     </div>
                 </div>
                 <div class="table-responsive">
