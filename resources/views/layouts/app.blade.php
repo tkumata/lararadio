@@ -24,6 +24,7 @@
     @else
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @endif
+    <link href="{{ asset('css/my.css') }}" rel="stylesheet">
 
     <!-- angularJS -->
     <script src="//code.angularjs.org/1.5.7/angular.min.js"></script>

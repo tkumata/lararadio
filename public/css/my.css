@@ -1,0 +1,17 @@
+/*
+ * My CSS.
+ */
+@charset "UTF-8";
+
+.none {
+    display: none;
+}
+
+span.channel_name {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+div.ch_cell {
+    display: block;
+}

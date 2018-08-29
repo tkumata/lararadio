@@ -19,9 +19,9 @@
                         <input type="hidden" name="channel_url" value="{{ $channel->channel_url }}">
                         <input type="hidden" class="chid" value="{{ $channel->id }}">
                         {{ csrf_field() }}
-                        <div class="panel-body">
+                        <div class="ch_cell panel-body">
                             @if ($channel->play == 1)
-                            <button class="btn btn-primary play" type="button" style="display:none;" ng-click="start($event)">
+                            <button class="none btn btn-primary play" type="button" ng-click="start($event)">
                                 <span class="glyphicon glyphicon-play"></span> Play
                             </button>
                             <button class="btn btn-default stop" type="button" ng-click="stop($event)">
@@ -31,11 +31,11 @@
                             <button class="btn btn-primary play" type="button" ng-click="start($event)">
                                 <span class="glyphicon glyphicon-play"></span> Play
                             </button>
-                            <button class="btn btn-default stop" type="button" style="display:none;" ng-click="stop($event)">
+                            <button class="none btn btn-default stop" type="button" ng-click="stop($event)">
                                 <span class="glyphicon glyphicon-stop"></span> Stop
                             </button>
                             @endif
-                            <span>{{ $channel->channel_name }}</span>
+                            <span class="channel_name">{{ $channel->channel_name }}</span>
                         </div>
                     </form>
                     @endforeach
