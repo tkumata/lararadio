@@ -98,7 +98,11 @@
         $interpolateProvider.endSymbol('%>');
     })
     .controller('MyController', ['$scope', '$http', function($scope, $http) {
+        @if (!empty($name))
+        $scope.result = "{{ $name }}";
+        @else
         $scope.result = "";
+        @endif
 
         $scope.start = function(event) {
             var clickIndex = $('.play').index(event.target);
