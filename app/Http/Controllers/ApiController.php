@@ -36,6 +36,9 @@ class ApiController extends Controller
                     . '" < /dev/null > /dev/null 2>&1 &';
                 // $cmd = storage_path('/').'play.sh ' . $request->channel_url.$live;
             } else {
+                /**
+                 * Check gpio, spi, i2c in /etc/group on your Raspberry Pi.
+                 */
                 $cmd = '/usr/bin/nohup /home/pi/bin/led_fire/led_fire.py > /dev/null 2>&1 &';
             }
         } elseif ($osName === 'DARWIN') {
