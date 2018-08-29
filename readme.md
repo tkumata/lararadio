@@ -9,7 +9,7 @@
 
 # Lararadio
 
-Internet radio player which has a UI as web broweser on Raspberry Pi. So your smartphone or PC become remote controller like a following image.
+Internet radio player on Raspberry Pi or Mac. So your smartphone or PC become remote controller like a following image.
 
 # Screenshot
 
