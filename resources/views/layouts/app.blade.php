@@ -97,14 +97,14 @@
         $interpolateProvider.startSymbol('<%');
         $interpolateProvider.endSymbol('%>');
     })
-    .controller('MyController', ['$scope', '$http', function($scope, $http) {
+    .controller('MyController', ['$scope', '$http', function($scope, $http){
         @if (!empty($name))
         $scope.result = "{{ $name }}";
         @else
         $scope.result = "";
         @endif
 
-        $scope.start = function(event) {
+        $scope.start = function(event){
             var clickIndex = $('.play').index(event.target);
             var playIndex = $('.chid').eq(clickIndex).val();
             var ddd = $("#channel-form"+playIndex).serialize();
@@ -126,7 +126,7 @@
             });
         };
 
-        $scope.stop = function(event) {
+        $scope.stop = function(event){
             var clickIndex = $('.stop').index(event.target);
             var playIndex = $('.chid').eq(clickIndex).val();
             var ddd = $("#channel-form"+playIndex).serialize();
