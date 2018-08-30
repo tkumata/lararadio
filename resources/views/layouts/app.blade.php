@@ -131,7 +131,7 @@
             }
         };
         $scope.stoping = function(status) {
-            if (status == 0) {
+            if (status != 1) {
                 return true;
             } else {
                 return false;
