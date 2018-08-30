@@ -114,7 +114,7 @@
                 url: top+'/api/topindex',
             })
             .success(function(data, status, headers, config){
-                $scope.channels = data.channels.data;
+                $scope.channels = data.channels;
             })
             .error(function(data, status, headers, config){
                 $scope.result = '通信失敗！' + status;

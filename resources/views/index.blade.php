@@ -47,7 +47,7 @@
                 {{-- AngularJS --}}
                 <div class="table-responsive">
                     <div class="panel-body">Shown by AngularJS, data binding</div>
-                    <form ng-repeat="channel in channels">
+                    <form method="post" ng-repeat="channel in channels" id="channel-form<% channel.id %>">
                         <input type="hidden" name="channel_id" value="<% channel.id %>">
                         <input type="hidden" name="channel_name" value="<% channel.channel_name %>">
                         <input type="hidden" name="channel_url" value="<% channel.channel_url %>">
