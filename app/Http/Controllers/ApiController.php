@@ -20,6 +20,7 @@ class ApiController extends Controller
 
         return response()->json([
             'channels' => $channels,
+            'playing' => $playing,
             'name' => $name
         ]);
     }

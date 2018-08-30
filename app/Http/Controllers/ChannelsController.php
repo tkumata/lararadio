@@ -16,12 +16,7 @@ class ChannelsController extends Controller
      */
     public function index()
     {
-        //
-        $channels = Channels::where('public', '1')->paginate(5);
-        $playing = Channels::where('play', '1')->first();
-        $name = empty($playing) ? null : $playing->channel_name;
-
-        return view('index', compact('channels', 'name'));
+        return view('index');
     }
 
     /**

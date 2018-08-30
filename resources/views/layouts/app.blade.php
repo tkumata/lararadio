@@ -99,12 +99,7 @@
         $interpolateProvider.endSymbol('%>');
     })
     .controller('MyController', ['$scope', '$http', function($scope, $http){
-        @if (!empty($name))
-        $scope.result = "{{ $name }}";
-        @else
-        $scope.result = "";
-        @endif
-
+        // Initial function.
         $scope.init = function(){
             // check if there is query in url
             // and fire search in case its value is not empty
@@ -115,12 +110,30 @@
             })
             .success(function(data, status, headers, config){
                 $scope.channels = data.channels;
+                $scope.result = data.name;
             })
             .error(function(data, status, headers, config){
                 $scope.result = '通信失敗！' + status;
             });
         };
 
+        // toggle play button when playing radio.
+        $scope.playing = function(status) {
+            if (status == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+        $scope.stoping = function(status) {
+            if (status == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        //
         $scope.start = function(event){
             var clickIndex = $('.play').index(event.target);
             var playIndex = $('.chid').eq(clickIndex).val();
