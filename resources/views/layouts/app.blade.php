@@ -45,7 +45,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'Laravel') }} with angularJS
                     </a>
                 </div>
 
@@ -110,7 +110,12 @@
             })
             .success(function(data, status, headers, config){
                 $scope.channels = data.channels;
-                $scope.result = data.name;
+
+                if (data.name) {
+                    $scope.result = data.name;
+                } else {
+                    $scope.result = "----";
+                }
             })
             .error(function(data, status, headers, config){
                 $scope.result = '通信失敗！' + status;
@@ -133,7 +138,7 @@
             }
         };
 
-        //
+        // play radio
         $scope.start = function(event){
             var clickIndex = $('.play').index(event.target);
             var playIndex = $('.chid').eq(clickIndex).val();
@@ -152,10 +157,11 @@
                 $scope.result = data.channel_name;
             })
             .error(function(data, status, headers, config){
-                $scope.result = '通信失敗！' + status;
+                $scope.result = '通信失敗！ err code: ' + status;
             });
         };
 
+        // stop radio
         $scope.stop = function(event){
             var clickIndex = $('.stop').index(event.target);
             var playIndex = $('.chid').eq(clickIndex).val();
@@ -174,7 +180,7 @@
                 $scope.result = "";
             })
             .error(function(data, status, headers, config){
-                $scope.result = '通信失敗！' + status;
+                $scope.result = '通信失敗！ err code: ' + status;
             });
         };
     }]);
