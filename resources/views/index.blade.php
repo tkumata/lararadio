@@ -20,6 +20,7 @@
                         <input type="hidden" class="chid" value="<% channel.id %>">
                         {{ csrf_field() }}
                         <div class="ch_cell panel-body">
+                            {{-- Play button --}}
                             <span ng-if="playing(channel.play)">
                                 <button class="none btn btn-primary play" type="button" ng-click="start($event)">
                                     <span class="glyphicon glyphicon-play"></span> Play
@@ -28,6 +29,7 @@
                                     <span class="glyphicon glyphicon-stop"></span> Stop
                                 </button>
                             </span>
+                            {{-- Stop button --}}
                             <span ng-if="stoping(channel.play)">
                                 <button class="btn btn-primary play" type="button" ng-click="start($event)">
                                     <span class="glyphicon glyphicon-play"></span> Play
@@ -36,6 +38,7 @@
                                     <span class="glyphicon glyphicon-stop"></span> Stop
                                 </button>
                             </span>
+                            {{-- Channel name --}}
                             <span class="channel_name"><% channel.channel_name %></span>
                         </div>
                     </form>

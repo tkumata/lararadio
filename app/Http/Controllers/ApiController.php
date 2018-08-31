@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * API Controller.
+ *
+ * @access public
+ * @package Controller
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -11,6 +16,10 @@ class ApiController extends Controller
 {
     /**
      * Top
+     *
+     * Get parts for top page of angularJS.
+     *
+     * @return json
      */
     public function topindex()
     {
@@ -52,7 +61,8 @@ class ApiController extends Controller
                 // $cmd = storage_path('/').'play.sh ' . $request->channel_url.$live;
             } else {
                 /**
-                 * Check gpio, spi, i2c in /etc/group on your Raspberry Pi.
+                 * Check /etc/group of gpio, spi, i2c on your Raspberry Pi (RaspbianOS).
+                 * Because www-data does not have permission of devices.
                  */
                 $cmd = '/usr/bin/nohup /home/pi/bin/led_fire/led_fire.py > /dev/null 2>&1 &';
             }
@@ -61,15 +71,17 @@ class ApiController extends Controller
                 . $request->channel_url.$live;
         }
 
+        // Execute $cmd. But macOS cannot execute below Symfony.
+        // So I use exec().
         // $process = new Process($cmd.' > /dev/null 2>&1 &');
         // $process->disableOutput();
         // $process->start();
         exec($cmd);
 
-        return [
+        return response()->json([
             'channel_name' => $ch->channel_name,
-            'channel_id' => $request->channel_id
-        ];
+            'channel_id' => $request->channel_id,
+        ]);
     }
 
     /**
@@ -83,10 +95,6 @@ class ApiController extends Controller
         $ch = Channels::find($request->channel_id);
         $ch->play = '0';
         $result = $ch->save();
-
-        // $process = new Process('/usr/bin/killall rtmpdump');
-        // $process->disableOutput();
-        // $process->start();
 
         $osName = strtoupper(PHP_OS);
 
@@ -105,8 +113,8 @@ class ApiController extends Controller
         }
 
         return response()->json([
-            'channel_name' => $ch->channel_name,
-            'channel_id' => $request->channel_id,
+            'channel_name' => "----",
+            'channel_id' => "",
         ]);
     }
 }

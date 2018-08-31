@@ -99,20 +99,22 @@
         $interpolateProvider.endSymbol('%>');
     })
     .controller('MyController', ['$scope', '$http', function($scope, $http){
+        // Set root uri on this site from Laravel.
+        var top = "{{ url('/') }}";
+
         // Initial function.
         $scope.init = function(){
-            // check if there is query in url
-            // and fire search in case its value is not empty
-            var top = "{{ url('/') }}";
+            // Get channels that included url, name, id, status from API.
             $http({
                 method: 'get',
-                url: top+'/api/topindex',
+                url: top + '/api/topindex',
             })
-            .success(function(data, status, headers, config){
-                $scope.channels = data.channels;
+            .success(function(res, status, headers, config){
+                // data binding.
+                $scope.channels = res.channels;
 
                 if (data.name) {
-                    $scope.result = data.name;
+                    $scope.result = res.name;
                 } else {
                     $scope.result = "----";
                 }
@@ -140,46 +142,48 @@
 
         // play radio
         $scope.start = function(event){
+            // Get clicked index.
             var clickIndex = $('.play').index(event.target);
             var playIndex = $('.chid').eq(clickIndex).val();
-            var ddd = $("#channel-form"+playIndex).serialize();
-            var top = "{{ url('/') }}";
+            var postData = $("#channel-form"+playIndex).serialize();
+
             $('.play').eq(clickIndex).css({'display':'none'});
             $('.stop').eq(clickIndex).css({'display':'inline-block'});
 
             $http({
                 method: 'post',
-                url: top+'/api/play',
+                url: top + '/api/play',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-                data: ddd
+                data: postData
             })
-            .success(function(data, status, headers, config){
-                $scope.result = data.channel_name;
+            .success(function(res, status, headers, config){
+                $scope.result = res.channel_name;
             })
-            .error(function(data, status, headers, config){
+            .error(function(res, status, headers, config){
                 $scope.result = '通信失敗！ err code: ' + status;
             });
         };
 
         // stop radio
         $scope.stop = function(event){
+            // Get clicked index.
             var clickIndex = $('.stop').index(event.target);
             var playIndex = $('.chid').eq(clickIndex).val();
-            var ddd = $("#channel-form"+playIndex).serialize();
-            var top = "{{ url('/') }}";
+            var postData = $("#channel-form"+playIndex).serialize();
+
             $('.play').eq(clickIndex).css({'display':'inline-block'});
             $('.stop').eq(clickIndex).css({'display':'none'});
 
             $http({
                 method: 'post',
-                url: top+'/api/stop',
+                url: top + '/api/stop',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-                data: ddd
+                data: postData
             })
-            .success(function(data, status, headers, config){
-                $scope.result = "";
+            .success(function(res, status, headers, config){
+                $scope.result = res.channel_name;
             })
-            .error(function(data, status, headers, config){
+            .error(function(res, status, headers, config){
                 $scope.result = '通信失敗！ err code: ' + status;
             });
         };
