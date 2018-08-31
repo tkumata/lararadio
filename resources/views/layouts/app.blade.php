@@ -118,7 +118,7 @@
                     $scope.result = "----";
                 }
             })
-            .error(function(data, status, headers, config){
+            .error(function(res, status, headers, config){
                 $scope.result = '通信失敗！' + status;
             });
         };
