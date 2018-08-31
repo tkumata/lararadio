@@ -86,7 +86,6 @@
                 </div>
             </div>
         </nav>
-
         @yield('content')
     </div>
 
@@ -110,7 +109,7 @@
                 url: top + '/api/topindex',
             })
             .success(function(res, status, headers, config){
-                // data binding.
+                // data binding for ng-repeat.
                 $scope.channels = res.channels;
 
                 if (data.name) {
@@ -124,7 +123,7 @@
             });
         };
 
-        // toggle play button when playing radio.
+        // toggle play/stop button.
         $scope.playing = function(status) {
             if (status == 1) {
                 return true;
@@ -140,17 +139,18 @@
             }
         };
 
-        // play radio
+        // play radio by ng-click.
         $scope.start = function(event){
             // Get clicked index.
             var clickIndex = $('.play').index(event.target);
-            var playIndex = $('.chid').eq(clickIndex).val();
-            var postData = $("#channel-form"+playIndex).serialize();
+            var formIndex = $('.chid').eq(clickIndex).val();
+            var postData = $("#channel-form"+formIndex).serialize();
 
             $('.play').eq(clickIndex).css({'display':'none'});
             $('.stop').eq(clickIndex).css({'display':'inline-block'});
 
             $http({
+                // need 'headers' because using serialize in above.
                 method: 'post',
                 url: top + '/api/play',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
@@ -164,17 +164,18 @@
             });
         };
 
-        // stop radio
+        // stop radio by ng-click.
         $scope.stop = function(event){
             // Get clicked index.
             var clickIndex = $('.stop').index(event.target);
-            var playIndex = $('.chid').eq(clickIndex).val();
-            var postData = $("#channel-form"+playIndex).serialize();
+            var formIndex = $('.chid').eq(clickIndex).val();
+            var postData = $("#channel-form"+formIndex).serialize();
 
             $('.play').eq(clickIndex).css({'display':'inline-block'});
             $('.stop').eq(clickIndex).css({'display':'none'});
 
             $http({
+                // need 'headers' because using serialize in above.
                 method: 'post',
                 url: top + '/api/stop',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
