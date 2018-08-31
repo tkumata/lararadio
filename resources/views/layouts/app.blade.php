@@ -112,7 +112,7 @@
                 // data binding for ng-repeat.
                 $scope.channels = res.channels;
 
-                if (data.name) {
+                if (res.name) {
                     $scope.result = res.name;
                 } else {
                     $scope.result = "----";
