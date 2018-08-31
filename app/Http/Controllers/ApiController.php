@@ -9,7 +9,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Channels;
-use Log;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\Process\Process;
 
 class ApiController extends Controller
