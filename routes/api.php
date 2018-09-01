@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/play', 'ApiController@play');
+Route::post('/play2', 'ApiController@play2');
 Route::post('/stop', 'ApiController@stop');
+Route::post('/stop2', 'ApiController@stop2');
 
 Route::get('/topindex', 'ApiController@topindex');

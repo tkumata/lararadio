@@ -13,7 +13,7 @@ Internet radio player on Raspberry Pi or Mac. So your smartphone or PC become re
 
 # Screenshot
 
-!["Screenshot"](./screenshot01.png)
+!["Screenshot"](./screenshot01.jpg)
 
 
 # Require

@@ -28,6 +28,10 @@
 
     <!-- angularJS -->
     <script src="//code.angularjs.org/1.5.7/angular.min.js"></script>
+
+    <!-- angularJS Slide -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.6.1/rzslider.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angularjs-slider/6.6.1/rzslider.min.js"></script>
 </head>
 <body ng-controller="MyController" data-ng-init="init()">
     <div id="app">
@@ -93,13 +97,14 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
     // app.js
-    angular.module('myApp', [], function($interpolateProvider){
+    angular.module('myApp', ['rzModule'], function($interpolateProvider){
         $interpolateProvider.startSymbol('<%');
         $interpolateProvider.endSymbol('%>');
     })
     .controller('MyController', ['$scope', '$http', function($scope, $http){
         // Set root uri on this site from Laravel.
         var top = "{{ url('/') }}";
+        var now = 1;
 
         // Initial function.
         $scope.init = function(){
@@ -111,9 +116,17 @@
             .success(function(res, status, headers, config){
                 // data binding for ng-repeat.
                 $scope.channels = res.channels;
+                now = res.ch;
 
                 if (res.name) {
                     $scope.result = res.name;
+                    $scope.slider = {
+                        value: now,
+                        options: {
+                            floor: 1,
+                            ceil: 12
+                        }
+                    };
                 } else {
                     $scope.result = "----";
                 }
@@ -121,6 +134,14 @@
             .error(function(res, status, headers, config){
                 $scope.result = '通信失敗！' + status;
             });
+        };
+
+        $scope.slider = {
+            value: now,
+            options: {
+                floor: 1,
+                ceil: 12
+            }
         };
 
         // toggle play/stop button.
@@ -164,8 +185,36 @@
             });
         };
 
+        $scope.play = function(value){
+            $http({
+                method: 'post',
+                url: top + '/api/play2',
+                data: { 'channel_id':value }
+            })
+            .success(function(res, status, headers, config){
+                $scope.result = res.channel_name;
+            })
+            .error(function(res, status, headers, config){
+                $scope.result = '通信失敗！ err code: ' + status;
+            });
+        };
+        $scope.stop = function(value){
+            $http({
+                method: 'post',
+                url: top + '/api/stop2',
+                data: { 'channel_id':value }
+            })
+            .success(function(res, status, headers, config){
+                $scope.result = res.channel_name;
+            })
+            .error(function(res, status, headers, config){
+                $scope.result = '通信失敗！ err code: ' + status;
+            });
+        };
+
+
         // stop radio by ng-click.
-        $scope.stop = function(event){
+        $scope.stoppppp = function(event){
             // Get clicked index.
             var clickIndex = $('.stop').index(event.target);
             var formIndex = $('.chid').eq(clickIndex).val();
