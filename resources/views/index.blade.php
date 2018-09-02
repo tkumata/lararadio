@@ -23,7 +23,6 @@
                 </div>
                 {{-- AngularJS --}}
                 <div class="table-responsive">
-                    Channel List
                     <form ng-repeat="channel in channels" id="channel-form<% channel.id %>">
                         <input type="hidden" name="channel_id" value="<% channel.id %>">
                         <input type="hidden" name="channel_name" value="<% channel.channel_name %>">
