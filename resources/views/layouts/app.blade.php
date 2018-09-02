@@ -136,6 +136,7 @@
             });
         };
 
+        // Slide options.
         $scope.slider = {
             value: now,
             options: {
@@ -144,16 +145,8 @@
             }
         };
 
-        // toggle play/stop button.
-        $scope.playing = function(status) {
+        $scope.playing = function(id, status) {
             if (status == 1) {
-                return true;
-            } else {
-                return false;
-            }
-        };
-        $scope.stoping = function(status) {
-            if (status != 1) {
                 return true;
             } else {
                 return false;
@@ -161,30 +154,6 @@
         };
 
         // play radio by ng-click.
-        $scope.start = function(event){
-            // Get clicked index.
-            var clickIndex = $('.play').index(event.target);
-            var formIndex = $('.chid').eq(clickIndex).val();
-            var postData = $("#channel-form"+formIndex).serialize();
-
-            $('.play').eq(clickIndex).css({'display':'none'});
-            $('.stop').eq(clickIndex).css({'display':'inline-block'});
-
-            $http({
-                // need 'headers' because using serialize in above.
-                method: 'post',
-                url: top + '/api/play',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-                data: postData
-            })
-            .success(function(res, status, headers, config){
-                $scope.result = res.channel_name;
-            })
-            .error(function(res, status, headers, config){
-                $scope.result = '通信失敗！ err code: ' + status;
-            });
-        };
-
         $scope.play = function(value){
             $http({
                 method: 'post',
@@ -193,11 +162,19 @@
             })
             .success(function(res, status, headers, config){
                 $scope.result = res.channel_name;
+                $scope.playing = function(id, status) {
+                    if (res.channel_id == id) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                };
             })
             .error(function(res, status, headers, config){
                 $scope.result = '通信失敗！ err code: ' + status;
             });
         };
+        // stop radio by ng-click.
         $scope.stop = function(value){
             $http({
                 method: 'post',
@@ -206,89 +183,15 @@
             })
             .success(function(res, status, headers, config){
                 $scope.result = res.channel_name;
-            })
-            .error(function(res, status, headers, config){
-                $scope.result = '通信失敗！ err code: ' + status;
-            });
-        };
-
-
-        // stop radio by ng-click.
-        $scope.stoppppp = function(event){
-            // Get clicked index.
-            var clickIndex = $('.stop').index(event.target);
-            var formIndex = $('.chid').eq(clickIndex).val();
-            var postData = $("#channel-form"+formIndex).serialize();
-
-            $('.play').eq(clickIndex).css({'display':'inline-block'});
-            $('.stop').eq(clickIndex).css({'display':'none'});
-
-            $http({
-                // need 'headers' because using serialize in above.
-                method: 'post',
-                url: top + '/api/stop',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
-                data: postData
-            })
-            .success(function(res, status, headers, config){
-                $scope.result = res.channel_name;
+                $scope.playing = function(id, status) {
+                    return false;
+                };
             })
             .error(function(res, status, headers, config){
                 $scope.result = '通信失敗！ err code: ' + status;
             });
         };
     }]);
-
-    // $(function(){
-    //     $(document).on('click', '.play', function(e){
-    //         var clickIndex = $('.play').index(this);
-    //         var playIndex = $('.chid').eq(clickIndex).val();
-    //         var data = $("#channel-form"+playIndex).serialize();
-    //         console.log(data);
-
-    //         $('.play').eq(clickIndex).css({'display':'none'});
-    //         $('.stop').eq(clickIndex).css({'display':'inline-block'});
-
-    //         $.ajax({
-    //             type: "post",
-    //             dataType: 'json',
-    //             url: '{{ url('/') }}/api/play',
-    //             data: data,
-    //             async: true,
-    //             timeout: 1000,
-    //             success:function(json){
-    //                 $("#messages").html('Now playing '+json.channel_name);
-    //             },
-    //             error:function(json){
-    //             }
-    //         });
-    //     });
-
-    //     $(document).on('click', '.stop', function(e){
-    //         var clickIndex = $('.stop').index(this);
-    //         var stopIndex = $('.chid').eq(clickIndex).val();
-    //         var data = $("#channel-form"+stopIndex).serialize();
-
-    //         $('.play').eq(clickIndex).css({'display':'inline-block'});
-    //         $('.stop').eq(clickIndex).css({'display':'none'});
-
-    //         $.ajax({
-    //             type: 'post',
-    //             dataType: 'json',
-    //             url: '{{ url('/') }}/api/stop',
-    //             data: data,
-    //             async: true,
-    //             timeout: 3000,
-    //             success:function(){
-    //                 $("#messages").html('');
-    //             },
-    //             error:function(){
-    //                 $("#messages").html('処理に失敗しました');
-    //             }
-    //         });
-
-    //     });
-    // });
     </script>
 </body>
 </html>

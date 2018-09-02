@@ -21,39 +21,11 @@
                         Now playing: <% result %>
                     </div>
                 </div>
-                {{-- AngularJS --}}
                 <div class="table-responsive">
-                    <form ng-repeat="channel in channels" id="channel-form<% channel.id %>">
-                        <input type="hidden" name="channel_id" value="<% channel.id %>">
-                        <input type="hidden" name="channel_name" value="<% channel.channel_name %>">
-                        <input type="hidden" name="channel_url" value="<% channel.channel_url %>">
-                        <input type="hidden" class="chid" value="<% channel.id %>">
-                        {{ csrf_field() }}
-                        <div class="ch_cell panel-body">
-                            <!--
-                            {{-- Play button --}}
-                            <span ng-if="playing(channel.play)">
-                                <button class="none btn btn-primary play" type="button" ng-click="start($event)">
-                                    <span class="glyphicon glyphicon-play"></span> Play
-                                </button>
-                                <button class="btn btn-default stop" type="button" ng-click="stop($event)">
-                                    <span class="glyphicon glyphicon-stop"></span> Stop
-                                </button>
-                            </span>
-                            {{-- Stop button --}}
-                            <span ng-if="stoping(channel.play)">
-                                <button class="btn btn-primary play" type="button" ng-click="start($event)">
-                                    <span class="glyphicon glyphicon-play"></span> Play
-                                </button>
-                                <button class="none btn btn-default stop" type="button" ng-click="stop($event)">
-                                    <span class="glyphicon glyphicon-stop"></span> Stop
-                                </button>
-                            </span>
-                            -->
-                            {{-- Channel name --}}
-                            <span class="channel_name">ch.<% channel.id %>: <% channel.channel_name %></span>
-                        </div>
-                    </form>
+                    <div class="ch_cell panel-body" ng-repeat="channel in channels">
+                        <span ng-if="playing(channel.id, channel.play)">★</span>
+                        <span class="channel_name">ch.<% channel.id %>: <% channel.channel_name %></span>
+                    </div>
                 </div>
             </div>
         </div>

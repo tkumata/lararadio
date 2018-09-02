@@ -65,6 +65,7 @@ class ApiController extends Controller
                 $cmd = '/usr/bin/nohup /usr/bin/mplayer -really-quiet -vo null -af volnorm=2:0.25 "'
                     . $request->channel_url.$live
                     . '" < /dev/null > /dev/null 2>&1 &';
+                // Another command to playing radio. Call external sh script.
                 // $cmd = storage_path('/').'play.sh ' . $request->channel_url.$live;
             } else {
                 /**
@@ -87,7 +88,7 @@ class ApiController extends Controller
 
         return response()->json([
             'channel_name' => $ch->channel_name,
-            'channel_id' => $request->channel_id,
+            'channel_id' => $request->channel_id
         ]);
     }
 
@@ -126,34 +127,38 @@ class ApiController extends Controller
 
         return response()->json([
             'channel_name' => $ch->channel_name,
-            'channel_id' => $request->channel_id,
+            'channel_id' => $request->channel_id
         ]);
     }
     public function stop2(Request $request)
     {
-        $ch = Channels::find($request->channel_id);
-        $ch->play = '0';
-        $result = $ch->save();
+        $playing = Channels::where('play', '1')->first();
 
-        $osName = strtoupper(PHP_OS);
+        if (!empty($playing->id)) {
+            $ch = Channels::find($playing->id);
+            $ch->play = '0';
+            $result = $ch->save();
 
-        if ($osName === 'LINUX') {
-            if (empty($ch->channel_url)) {
-                $mplayerProcess = new Process('/usr/bin/killall python');
-            } else {
-                $mplayerProcess = new Process('/usr/bin/killall mplayer');
+            $osName = strtoupper(PHP_OS);
+
+            if ($osName === 'LINUX') {
+                if (empty($ch->channel_url)) {
+                    $mplayerProcess = new Process('/usr/bin/killall python');
+                } else {
+                    $mplayerProcess = new Process('/usr/bin/killall mplayer');
+                }
+
+                $mplayerProcess->disableOutput();
+                $mplayerProcess->start();
+            } elseif ($osName === 'DARWIN') {
+                $cmd = '/usr/bin/killall "QuickTime Player"';
+                exec($cmd);
             }
-
-            $mplayerProcess->disableOutput();
-            $mplayerProcess->start();
-        } elseif ($osName === 'DARWIN') {
-            $cmd = '/usr/bin/killall "QuickTime Player"';
-            exec($cmd);
         }
 
         return response()->json([
             'channel_name' => "----",
-            'channel_id' => "",
+            'channel_id' => ""
         ]);
     }
 
