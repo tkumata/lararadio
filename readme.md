@@ -9,9 +9,7 @@
 
 # Lararadio
 
-Internet radio player on Raspberry Pi or Mac. So your smartphone or PC become remote controller like a following image.
-
-# Screenshot
+This is Laravel app which is internet radio player on Raspberry Pi or Mac. So your smartphone or PC are made remote controller like a bellow image.
 
 !["Screenshot"](./screenshot01.jpg)
 

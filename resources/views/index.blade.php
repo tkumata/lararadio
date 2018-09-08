@@ -23,7 +23,7 @@
                 </div>
                 <div class="table-responsive">
                     <div class="ch_cell panel-body" ng-repeat="channel in channels">
-                        <span ng-if="playing(channel.id, channel.play)">★</span>
+                        <span ng-if="playing(channel.id, channel.play)">☆</span>
                         <span class="channel_name">ch.<% channel.id %>: <% channel.channel_name %></span>
                     </div>
                 </div>

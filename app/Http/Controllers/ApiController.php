@@ -45,6 +45,87 @@ class ApiController extends Controller
      *
      * @return json
      */
+    public function play2(Request $request)
+    {
+        $ch = Channels::find($request->channel_id);
+        $ch->play = '1';
+        $result = $ch->save();
+
+        if (preg_match("/aandg22$/", $ch->channel_url)) {
+            $live = " live=1";
+        } else {
+            $live = "";
+        }
+
+        $osName = strtoupper(PHP_OS);
+
+        if ($osName === 'LINUX') {
+            if (!empty($ch->channel_url)) {
+                $cmd = '/usr/bin/nohup /usr/bin/mplayer -really-quiet -vo null -af volnorm=2:0.25 "'
+                    . $ch->channel_url.$live
+                    . '" < /dev/null > /dev/null 2>&1 &';
+            } else {
+                /**
+                 * Check /etc/group of gpio, spi, i2c on your Raspberry Pi (RaspbianOS).
+                 * Because www-data does not have permission of devices.
+                 */
+                $cmd = '/usr/bin/nohup /home/pi/bin/led_fire/led_fire.py > /dev/null 2>&1 &';
+            }
+        } elseif ($osName === 'DARWIN') {
+            $cmd = '/usr/bin/open -a "QuickTime Player" '
+                . $ch->channel_url.$live;
+        }
+
+        exec($cmd);
+
+        return response()->json([
+            'channel_name' => $ch->channel_name,
+            'channel_id' => $request->channel_id
+        ]);
+    }
+
+    /**
+     * Stop sound Controller
+     *
+     * @return json
+     */
+    public function stop2(Request $request)
+    {
+        $playing = Channels::where('play', '1')->first();
+
+        if (!empty($playing->id)) {
+            $ch = Channels::find($playing->id);
+            $ch->play = '0';
+            $result = $ch->save();
+
+            $osName = strtoupper(PHP_OS);
+
+            if ($osName === 'LINUX') {
+                if (empty($ch->channel_url)) {
+                    $mplayerProcess = new Process('/usr/bin/killall python');
+                } else {
+                    $mplayerProcess = new Process('/usr/bin/killall mplayer');
+                }
+
+                $mplayerProcess->disableOutput();
+                $mplayerProcess->start();
+            } elseif ($osName === 'DARWIN') {
+                $cmd = '/usr/bin/killall "QuickTime Player"';
+                exec($cmd);
+            }
+        }
+
+        return response()->json([
+            'channel_name' => "----",
+            'channel_id' => ""
+        ]);
+    }
+
+    /**
+     * Play sound Controller
+     *
+     * @return json
+     */
     public function play(Request $request)
     {
         //
@@ -89,76 +170,6 @@ class ApiController extends Controller
         return response()->json([
             'channel_name' => $ch->channel_name,
             'channel_id' => $request->channel_id
-        ]);
-    }
-
-    public function play2(Request $request)
-    {
-        $ch = Channels::find($request->channel_id);
-        $ch->play = '1';
-        $result = $ch->save();
-
-        if (preg_match("/aandg22$/", $ch->channel_url)) {
-            $live = " live=1";
-        } else {
-            $live = "";
-        }
-
-        $osName = strtoupper(PHP_OS);
-
-        if ($osName === 'LINUX') {
-            if (!empty($ch->channel_url)) {
-                $cmd = '/usr/bin/nohup /usr/bin/mplayer -really-quiet -vo null -af volnorm=2:0.25 "'
-                    . $ch->channel_url.$live
-                    . '" < /dev/null > /dev/null 2>&1 &';
-            } else {
-                /**
-                 * Check /etc/group of gpio, spi, i2c on your Raspberry Pi (RaspbianOS).
-                 * Because www-data does not have permission of devices.
-                 */
-                $cmd = '/usr/bin/nohup /home/pi/bin/led_fire/led_fire.py > /dev/null 2>&1 &';
-            }
-        } elseif ($osName === 'DARWIN') {
-            $cmd = '/usr/bin/open -a "QuickTime Player" '
-                . $ch->channel_url.$live;
-        }
-
-        exec($cmd);
-
-        return response()->json([
-            'channel_name' => $ch->channel_name,
-            'channel_id' => $request->channel_id
-        ]);
-    }
-    public function stop2(Request $request)
-    {
-        $playing = Channels::where('play', '1')->first();
-
-        if (!empty($playing->id)) {
-            $ch = Channels::find($playing->id);
-            $ch->play = '0';
-            $result = $ch->save();
-
-            $osName = strtoupper(PHP_OS);
-
-            if ($osName === 'LINUX') {
-                if (empty($ch->channel_url)) {
-                    $mplayerProcess = new Process('/usr/bin/killall python');
-                } else {
-                    $mplayerProcess = new Process('/usr/bin/killall mplayer');
-                }
-
-                $mplayerProcess->disableOutput();
-                $mplayerProcess->start();
-            } elseif ($osName === 'DARWIN') {
-                $cmd = '/usr/bin/killall "QuickTime Player"';
-                exec($cmd);
-            }
-        }
-
-        return response()->json([
-            'channel_name' => "----",
-            'channel_id' => ""
         ]);
     }
 
